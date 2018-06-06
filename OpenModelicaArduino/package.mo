@@ -293,7 +293,7 @@ equation
 <h4>Description</h4>
 <p>This example uses the DigitalOutput component to control the LED attached to the Arduino board on pin 13. It uses a BooleanPulse from the Modelica library to produce an On/Off signal that is fed into the DigitalOutput component. This will make the LED attached to the pin blink.</p>
 <p>You can go ahead and add more LEDs to the board as shown in the following figure. This will require you to add one more DigitalOutput component to control the LED on pin 9.</p>
-<p><img src=\"modelica://OpenModelicaArduino/Resources/Images/Blink.png\" alt=\"\"/></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, initialScale = 0.1, grid = {5, 5}), graphics = {Text(origin = {0, 30}, extent = {{-50, -10}, {50, 10}}, textString = "Blinking an LED", fontSize = 24)}));
+<p><img src=\"modelica://OpenModelicaArduino/Resources/Images/Blink.png\" alt=\"\"/></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, initialScale = 0.1, grid = {5, 5})));
 end BlinkLed;
 
 
@@ -333,7 +333,7 @@ end BlinkLed;
     <h4><br />Description</h4>
     <p>This example uses the AnalogOutput component to change the light intensity of an LED. AnalogOutput uses the Arduino function 'analogWrite', which produces a PWM (Pulse-Width Modulated) signal. This type of signal can be used to directly&nbsp;control the LED intensity. The following figure shows the connections.</p>
     <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/Dimming.png\" alt=\"\" /></p>
-    <p>You can check the Arduino Playground to know more about PWM outputs.&nbsp;</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {0, 30}, extent = {{-50.857, -10}, {50.857, 10}}, textString = "Dimming LED", fontSize = 24)}));
+    <p>You can check the Arduino Playground to know more about PWM outputs.&nbsp;</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, initialScale = 0.1, grid = {5, 5})));
     end DimmingLed;
 
 
@@ -365,7 +365,7 @@ end BlinkLed;
     <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/ReadAnalog.png\" alt=\"\" /></p>
     <p>You can see that pin A0 for the Arduino corresponds to pin number 14 for the Firmata. For other boards, the pin numbering may vary.</p>
     <p>Run the simulation and move the potentiometer. You should see that when the position of the shaft is near the middle, the LED changes state.</p>
-    <p>The AnalogInput component returns a signal between 0 and 1. This value represents the voltage between 0 and the reference voltage. If you prefer to get the signal directly in volts, you need to change the 'MaxValue' property to the reference voltage, but generally it is either 5 V or 3.3 V.</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {0, 35}, extent = {{-50, -10}, {50, 10}}, textString = "Reading a Sensor", fontSize = 24)}));
+    <p>The AnalogInput component returns a signal between 0 and 1. This value represents the voltage between 0 and the reference voltage. If you prefer to get the signal directly in volts, you need to change the 'MaxValue' property to the reference voltage, but generally it is either 5 V or 3.3 V.</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, initialScale = 0.1, grid = {5, 5})));
     end ReadSensor;
 
 
@@ -376,7 +376,7 @@ end BlinkLed;
       Pins.Servo servo(Pin = 10) annotation(Placement(visible = true, transformation(origin = {0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelica.Blocks.Sources.ExpSine expSine(offset = 0.5, amplitude = 0.5, freqHz = 0.4, damping = 0.1) annotation(Placement(visible = true, transformation(origin = {-30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
-        Placement(visible = true, transformation(origin = {-40, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+        Placement(visible = true, transformation(origin = {-25, 35}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     equation
       connect(expSine.y, servo.u) annotation(Line(visible = true, origin = {-14.5, -10}, points = {{-4.5, -0}, {4.5, 0}}, color = {0, 0, 127}));
       connect(servo.pinConnector, arduino.boardConnector) annotation(Line(visible = true, origin = {20, -10}, points = {{-10, 0}, {10, -0}}, color = {72, 73, 79}));
@@ -390,7 +390,7 @@ end BlinkLed;
     <p>This example shows how to control a servo by using the Servo component. You can find the diagram in&nbsp;the following figure.</p>
     <p>For this example, it is recommended to use an external power source to provide voltage for the servo. This is because the power from the Arduino may not be enough to supply the servo. If you are not sure how to connect your servo, take a look at the reference in the Arduino Playground (<a href=\"http://playground.arduino.cc/\">http://playground.arduino.cc</a>).</p>
     <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/ServoExample.png\" alt=\"\" /></p>
-    <p>Servos are controlled with a signal in the range of 0 to 1, where 0 corresponds to 0 degrees of rotation and 1 to 180 degrees. This example makes the servo bounce from 0 to 180 degrees until it gets stable around 90 degrees.</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {-0, 30}, extent = {{-50, -10}, {50, 10}}, textString = "Controlling a Servo", fontSize = 24)}));
+    <p>Servos are controlled with a signal in the range of 0 to 1, where 0 corresponds to 0 degrees of rotation and 1 to 180 degrees. This example makes the servo bounce from 0 to 180 degrees until it gets stable around 90 degrees.</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, initialScale = 0.1, grid = {5, 5})));
     end MoveServo;
 
 
@@ -426,7 +426,7 @@ end BlinkLed;
     <h4>Description</h4>
     <p>This example is a simple ON/OFF controller and can be used for&nbsp;either heating or cooling. It uses an LM35 to read the temperature, and based on that temperature, the controller switches a relay on or off. You can attach a fan or a heater&nbsp;to the relay, depending on the operation you want to perform. You can find the diagram in the following figure. <br /><strong>Note:</strong>&nbsp;You need to be careful when using relays that control electrical equipment using AC voltage, because an incorrect connection may damage your board.</p>
     <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/SimpleONOFF.png\" alt=\"\" /></p>
-    <p>The target temperature is set by a constant component. The measured temperature is subtracted from the reference in order to obtain the error. The error signal is fed into the hysteresis component, which will send a Boolean signal to control the relay. If you want cooling instead of heating, you need to invert the logic of this signal.</p></html>"), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {-0, 35}, extent = {{-50, -10}, {50, 10}}, textString = "Simple ON/OFF Control", fontSize = 24)}));
+    <p>The target temperature is set by a constant component. The measured temperature is subtracted from the reference in order to obtain the error. The error signal is fed into the hysteresis component, which will send a Boolean signal to control the relay. If you want cooling instead of heating, you need to invert the logic of this signal.</p></html>"), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, initialScale = 0.1, grid = {5, 5})));
     end SimpleONOFF;
 
 
@@ -451,6 +451,8 @@ end BlinkLed;
       Modelica.Blocks.Sources.BooleanPulse booleanPulse(period = 1) annotation(Placement(visible = true, transformation(origin = {-30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Pins.DigitalOutput digitalOutput(Pin = 13) annotation(Placement(visible = true, transformation(origin = {-0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Boards.CustomFirmata customFirmata(Port = "COM1", BaudRate = 115200, UpdatePeriod = 0.001) annotation(Placement(visible = true, transformation(origin = {30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
+        Placement(visible = true, transformation(origin = {-30, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     equation
       connect(digitalOutput.pinConnector, customFirmata.boardConnector) annotation(Line(visible = true, origin = {20, -10}, points = {{-10, 0}, {10, -0}}));
       connect(booleanPulse.y, digitalOutput.u) annotation(Line(visible = true, origin = {-14.5, -10}, points = {{-4.5, 0}, {4.5, 0}}, color = {255, 0, 255}));
@@ -468,7 +470,7 @@ end BlinkLed;
     <p>and changing it to</p>
     <p><span style=\"font-family: 'courier new', courier;\">#define MINIMUM_SAMPLING_INTERVAL 1</span></p>
     <p>This changes the sampling interval limit from 10 ms to 1ms. You have to consider that this change is possible because the Teensy board can run up to 96 MHz. If you change the sampling interval, it is necessary to change the simulation setting in SimulationCenter to 1 ms, as shown in the following figure.</p>
-    <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/Interval.png\" alt=\"\" /></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {0, 30}, extent = {{-50, -10}, {50, 10}}, textString = "Using a Custom Board", fontSize = 24)}));
+    <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/Interval.png\" alt=\"\" /></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, initialScale = 0.1, grid = {5, 5})));
     end UsingCustomBoard;
 
 
@@ -479,6 +481,8 @@ end BlinkLed;
       Boards.StandardFirmata standardFirmata(Port = "COM1", ShowPinCapabilities = true) annotation(Placement(visible = true, transformation(origin = {30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       OpenModelicaArduino.Pins.DigitalOutput digitalOutput(Pin = 13) annotation(Placement(visible = true, transformation(origin = {-0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelica.Blocks.Sources.BooleanPulse booleanPulse(period = 1) annotation(Placement(visible = true, transformation(origin = {-30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
+        Placement(visible = true, transformation(origin = {-35, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     equation
       connect(digitalOutput.pinConnector, standardFirmata.boardConnector) annotation(Line(visible = true, origin = {20, -10}, points = {{-10, 0}, {10, 0}}, color = {72, 73, 79}));
       connect(booleanPulse.y, digitalOutput.u) annotation(Line(visible = true, origin = {-14.5, -10}, points = {{-4.5, 0}, {4.5, 0}}, color = {255, 0, 255}));
@@ -491,7 +495,7 @@ end BlinkLed;
     <h4>Description</h4>
     <p>This example uses the DigitalOutput component to control the LED attached to a standard Firmata board on pin 13. It uses a BooleanPulse from the Modelica library to produce an On/Off signal that is fed into the DigitalOutput component. This will make the LED attached to the pin blink.</p>
     <p>You can go ahead and add more LEDs to the board as shown in the following figure. This will require you to add one more DigitalOutput component to control the LED on pin 9.</p>
-    <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/StandardFirmata.png\" alt=\"\" /></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {-0, 30}, extent = {{-50, -10}, {50, 10}}, textString = "Using Standard Firmata", fontSize = 24)}));
+    <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/StandardFirmata.png\" alt=\"\" /></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, initialScale = 0.1, grid = {5, 5})));
     end UsingStandardFirmata;
 
     annotation(Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
