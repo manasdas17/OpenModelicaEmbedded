@@ -5,10 +5,10 @@ package OpenModelicaArduino "Connecting OpenModelica with Arduino"
       <h4>Preparing Your Board</h4>
       <p> .</p>
       <p>The first thing you need to do is upload the Firmware code to your board .</p>
-      <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/FirmataLocation.png\" alt=\"\" /></p>
+      <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/FirmataLocation.png\" alt=\"\" /></p>
       <p><em>Figure 1. Location of the Firmware sketch.</em></p>
       <p>Once the the Firmware code is in the board, you&nbsp;need to write down the serial port that it is using. This is important because you&nbsp;need to give the port name to OpenModelicaArduino in order to communicate with the board. You can find the serial port in Tools-&gt;Serial Port or in the bottom-right corner of the Arduino software window (see Figure 2). In Windows the serial port name is something like &ldquo;COM5&rdquo;, while in OS X and Linux the name will be something like &ldquo;/dev/ttyACM0&rdquo;. Now you&nbsp;are ready to make your&nbsp;first model.</p>
-      <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/SerialPortLocation.png\" alt=\"\" /></p>
+      <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/SerialPortLocation.png\" alt=\"\" /></p>
       <p><em>Figure 2. Finding the serial port being used.</em>&nbsp;</p>
       <h4>Blinking LED</h4>
       <p>As a first exercise, you&nbsp;are going to reproduce with OpenModelicaArduino the blinking LED example. You can either open the prebuilt example (OpenModelicaArduino.Examples.BlinkLed) or build it by yourself. To build the model, locate the components:</p>
@@ -18,27 +18,27 @@ package OpenModelicaArduino "Connecting OpenModelica with Arduino"
       <li>Modelica.Blocks.Sources.BooleanPulse</li>
       </ul>
       <p>Connect the components as in Figure 3.&nbsp;One thing to notice is that the DigitalOutput model is connected to the Arduino component to specify that the pin belongs to that board. This connection is necessary because OpenModelicaArduino can use multiple boards with multiple pins at the same time.</p>
-      <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/BlinkingLEDModel.png\" alt=\"\" /></p>
+      <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/BlinkingLEDModel.png\" alt=\"\" /></p>
       <p><em>Figure 3. Diagram of the blinking LED.</em></p>
       <p>Next you&nbsp;need to specify the serial port that the board is using. This is done by selecting the Arduino component and showing its parameters. In the parameter view, you&nbsp;can find the Port parameter. Write the port name that you got in the section &ldquo;Preparing your board&rdquo;. Important: the name must be have quotation marks&nbsp;as shown in Figure 4.</p>
-      <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/QuotedSerialPort.png\" alt=\"\" /></p>
+      <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/QuotedSerialPort.png\" alt=\"\" /></p>
       <p><em>Figure 4. Specifying the serial port name.&nbsp;</em></p>
       <p>Now you&nbsp;need to set the pin number that you&nbsp;are going to use in the DigitalOutput component. Usually, the Arduino boards have an LED attached to pin 13. Set that number in the Pin parameter as shown in Figure 5.</p>
-      <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/PinNumber.png\" alt=\"\" /></p>
+      <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/PinNumber.png\" alt=\"\" /></p>
       <p><em>Figure 5. Specifying the pin to use.</em></p>
       <p>For the BooleanPulse component, set the 'period' parameter to 1. The model is ready to simulate. Press the simulate button and wait to see the results.</p>
       <p>The first time you run the model, it is probably simulated so fast that you do not have&nbsp;time to react. The reason is that OpenModelica simulates the model as fast as possible. In order to interact with your models using OpenModelicaArduino, it is necessary to synchronize the simulation time with real time. This is done in by using Synchronisation block in ModelicaDeviceDriver library. After simulating the model one time, you need to check in the checkbox&nbsp;&ldquo;Synchronize with real-time&rdquo; as shown in Figure 6.</p>
-      //<p>&nbsp;<img src=\"Modelica://OpenModelicaArduino/Resources/Images/SynchronizeSetting.png\" alt=\"\" /></p>
+      //<p>&nbsp;<img src=\"modelica://OpenModelicaArduino/Resources/Images/SynchronizeSetting.png\" alt=\"\" /></p>
       //<p><em>Figure 6. Synchronizing your simulation with real time.</em>&nbsp;</p>
       //<p>If you are building many models with the OpenModelicaArduino library, you should set the &ldquo;Synchronize with real-time&rdquo; option as a default simulation setting in SimulationCenter under the menu Tools-&gt;Options in the section SimulationCenter-&gt;Default Experiment (see Figure 7).&nbsp;</p>
-      //<p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/DefaultSynchronize.png\" alt=\"\" />&nbsp;</p>
+      //<p><img src=\"modelica://OpenModelicaArduino/Resources/Images/DefaultSynchronize.png\" alt=\"\" />&nbsp;</p>
       //<p><em>Figure 7. Setting \"Synchronize with real-time\" as default.</em></p>
       //<p>Now run the simulation again and you should see the LED blinking until the simulation reaches the stop time. If you want to keep the simulation running continuously, you need to change the stop time to &ldquo;infinite&rdquo; as shown in Figure 8.</p>
-      //<p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/StopTime.png\" alt=\"\" /></p>
+      //<p><img src=\"modelica://OpenModelicaArduino/Resources/Images/StopTime.png\" alt=\"\" /></p>
       //<p><em>Figure 8. &nbsp;Setting the stop time to infinite.</em></p>
       //<p>If you run the simulation again, you should see the LED blinking continuously.</p>
       <p>One thing that you may have noticed is that OpenModelicaArduino prints status messages in the simulation log (see Figure 9). The first thing it prints is a list of the available ports. In that list, you should see your current port (A). After that, it prints the current port and the speed used (B). Once the port is opened, you&nbsp;receive a notification that the board is initialized (C). Usually the boards report the version of Firmata that you are running. Then you&nbsp;set the sampling interval that the board uses (D). In this example, you can see that you are setting pin 13 to be an output because you&nbsp;have used the DigitalOutput component (E). Finally you&nbsp;will see that the board will send you&nbsp;a list of all the pins available and thier capabilities (F). This list contains the number of the pin and the modes in which it can be used, for example: DigitalInput, DigitalOutput, AnalogInput, AnalogOutput, and Servo.</p>
-      <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/ModelPlugLog-withmarkers.png\" alt=\"\" /></p>
+      <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/ModelPlugLog-nomarkers.png\" alt=\"\" /></p>
       <p><em>Figure 9. Messages shown by OpenModelicaArduino.</em></p>
       <h4>Troubleshooting</h4>
       <p>This is a checklist that you can follow in order to solve most of the problems that can occur when using the ModelPlug library:</p>
@@ -56,6 +56,7 @@ package OpenModelicaArduino "Connecting OpenModelica with Arduino"
       <h4>What Next?</h4>
       <p>OpenModelicaArduino contains a series of basic examples showing the functionality of the components. You can check the Examples under ModelPlug.Examples. Once you have learned how to use the basic components of OpenModelicaArduino, you can check the Arduino Playground to learn how to connect other sensors and actuators (<a href=\"http://playground.arduino.cc/\">http://playground.arduino.cc</a>).</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
   end GettingStarted;
+
 
   package Pins "Components to access the board I/O"
     extends Internal.Icons.Block;
@@ -292,8 +293,13 @@ equation
 <h4>Description</h4>
 <p>This example uses the DigitalOutput component to control the LED attached to the Arduino board on pin 13. It uses a BooleanPulse from the Modelica library to produce an On/Off signal that is fed into the DigitalOutput component. This will make the LED attached to the pin blink.</p>
 <p>You can go ahead and add more LEDs to the board as shown in the following figure. This will require you to add one more DigitalOutput component to control the LED on pin 9.</p>
-<p><img src=\"Modelica://Desktop/Modelica/OpenModelicaArduino/Resources/Images/Blink.png\" alt=\"\" /></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, initialScale = 0.1, grid = {5, 5}), graphics = {Text(origin = {0, 30}, extent = {{-50, -10}, {50, 10}}, textString = "Blinking an LED", fontSize = 24)}));
+<p><img src=\"modelica://OpenModelicaArduino/Resources/Images/Blink.png\" alt=\"\"/></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, initialScale = 0.1, grid = {5, 5}), graphics = {Text(origin = {0, 30}, extent = {{-50, -10}, {50, 10}}, textString = "Blinking an LED", fontSize = 24)}));
 end BlinkLed;
+
+
+
+
+
 
 
 
@@ -326,9 +332,10 @@ end BlinkLed;
     </ul>
     <h4><br />Description</h4>
     <p>This example uses the AnalogOutput component to change the light intensity of an LED. AnalogOutput uses the Arduino function 'analogWrite', which produces a PWM (Pulse-Width Modulated) signal. This type of signal can be used to directly&nbsp;control the LED intensity. The following figure shows the connections.</p>
-    <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/Dimming.png\" alt=\"\" /></p>
+    <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/Dimming.png\" alt=\"\" /></p>
     <p>You can check the Arduino Playground to know more about PWM outputs.&nbsp;</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {0, 30}, extent = {{-50.857, -10}, {50.857, 10}}, textString = "Dimming LED", fontSize = 24)}));
     end DimmingLed;
+
 
 
     model ReadSensor "Reading analog signals"
@@ -355,11 +362,12 @@ end BlinkLed;
     </ul>
     <h4>Description</h4>
     <p>This example shows how to read an analog voltage using the AnalogInput component. The analog signal is then compared to a reference, and if the signal is above the reference, it will turn on an LED. You can see in the following figure how to build this example.</p>
-    <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/ReadAnalog.png\" alt=\"\" /></p>
+    <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/ReadAnalog.png\" alt=\"\" /></p>
     <p>You can see that pin A0 for the Arduino corresponds to pin number 14 for the Firmata. For other boards, the pin numbering may vary.</p>
     <p>Run the simulation and move the potentiometer. You should see that when the position of the shaft is near the middle, the LED changes state.</p>
     <p>The AnalogInput component returns a signal between 0 and 1. This value represents the voltage between 0 and the reference voltage. If you prefer to get the signal directly in volts, you need to change the 'MaxValue' property to the reference voltage, but generally it is either 5 V or 3.3 V.</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {0, 35}, extent = {{-50, -10}, {50, 10}}, textString = "Reading a Sensor", fontSize = 24)}));
     end ReadSensor;
+
 
 
     model MoveServo "Using servos"
@@ -381,9 +389,10 @@ end BlinkLed;
     <h4>Description</h4>
     <p>This example shows how to control a servo by using the Servo component. You can find the diagram in&nbsp;the following figure.</p>
     <p>For this example, it is recommended to use an external power source to provide voltage for the servo. This is because the power from the Arduino may not be enough to supply the servo. If you are not sure how to connect your servo, take a look at the reference in the Arduino Playground (<a href=\"http://playground.arduino.cc/\">http://playground.arduino.cc</a>).</p>
-    <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/ServoExample.png\" alt=\"\" /></p>
+    <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/ServoExample.png\" alt=\"\" /></p>
     <p>Servos are controlled with a signal in the range of 0 to 1, where 0 corresponds to 0 degrees of rotation and 1 to 180 degrees. This example makes the servo bounce from 0 to 180 degrees until it gets stable around 90 degrees.</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {-0, 30}, extent = {{-50, -10}, {50, 10}}, textString = "Controlling a Servo", fontSize = 24)}));
     end MoveServo;
+
 
 
     model SimpleONOFF "A simple On/Off controller"
@@ -416,9 +425,10 @@ end BlinkLed;
     </ul>
     <h4>Description</h4>
     <p>This example is a simple ON/OFF controller and can be used for&nbsp;either heating or cooling. It uses an LM35 to read the temperature, and based on that temperature, the controller switches a relay on or off. You can attach a fan or a heater&nbsp;to the relay, depending on the operation you want to perform. You can find the diagram in the following figure. <br /><strong>Note:</strong>&nbsp;You need to be careful when using relays that control electrical equipment using AC voltage, because an incorrect connection may damage your board.</p>
-    <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/SimpleONOFF.png\" alt=\"\" /></p>
+    <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/SimpleONOFF.png\" alt=\"\" /></p>
     <p>The target temperature is set by a constant component. The measured temperature is subtracted from the reference in order to obtain the error. The error signal is fed into the hysteresis component, which will send a Boolean signal to control the relay. If you want cooling instead of heating, you need to invert the logic of this signal.</p></html>"), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {-0, 35}, extent = {{-50, -10}, {50, 10}}, textString = "Simple ON/OFF Control", fontSize = 24)}));
     end SimpleONOFF;
+
 
 
     model UsingArduinoLeonardo "Basic example of blinking an LED"
@@ -431,8 +441,9 @@ end BlinkLed;
    </ul>
    <h4>Description</h4>
    <p>This example shows how the 
-   <a href=\\\"modelica://OpenModelicaArduino.Examples.BlinkLed\\\">BlinkLed</a> can be used with an Arduino Leonardo.</p></html>", revisions = ""));
+   <a href=\"modelica://OpenModelicaArduino.Examples.BlinkLed\">Blink Led</a> can be used with an Arduino Leonardo.</p></html>", revisions = ""));
     end UsingArduinoLeonardo;
+
 
 
     model UsingCustomBoard "Using a Firmata-compatible board"
@@ -447,7 +458,7 @@ end BlinkLed;
     <p>- 1 Teensy 3.1 board</p>
     <h4>Description</h4>
     <p>This example shows how to use a board with a custom version of Firmata. The Teensy board works perfectly with the StandardFirmata, but in this example it is modified in order get a faster data transfer speed.</p>
-    <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/CustomExample.png\" alt=\"\" /></p>
+    <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/CustomExample.png\" alt=\"\" /></p>
     <p><br />The main difference of the CustomFirmata component is that it allows you to set the baud rate to the sampling interval that you want to use. In this case the oce of the StandardFirmata is modified to use a baud rate of 115200. You can perform this modification in the source code. Search for the line:</p>
     <p><span style=\"font-family: 'courier new', courier;\">Firmata.Begin(57600);</span></p>
     <p>and changing it to</p>
@@ -457,8 +468,10 @@ end BlinkLed;
     <p>and changing it to</p>
     <p><span style=\"font-family: 'courier new', courier;\">#define MINIMUM_SAMPLING_INTERVAL 1</span></p>
     <p>This changes the sampling interval limit from 10 ms to 1ms. You have to consider that this change is possible because the Teensy board can run up to 96 MHz. If you change the sampling interval, it is necessary to change the simulation setting in SimulationCenter to 1 ms, as shown in the following figure.</p>
-    <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/Interval.png\" alt=\"\" /></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {0, 30}, extent = {{-50, -10}, {50, 10}}, textString = "Using a Custom Board", fontSize = 24)}));
+    <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/Interval.png\" alt=\"\" /></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {0, 30}, extent = {{-50, -10}, {50, 10}}, textString = "Using a Custom Board", fontSize = 24)}));
     end UsingCustomBoard;
+
+
 
 
     model UsingStandardFirmata "Using a standard Firmata board"
@@ -478,7 +491,7 @@ end BlinkLed;
     <h4>Description</h4>
     <p>This example uses the DigitalOutput component to control the LED attached to a standard Firmata board on pin 13. It uses a BooleanPulse from the Modelica library to produce an On/Off signal that is fed into the DigitalOutput component. This will make the LED attached to the pin blink.</p>
     <p>You can go ahead and add more LEDs to the board as shown in the following figure. This will require you to add one more DigitalOutput component to control the LED on pin 9.</p>
-    <p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/StandardFirmata.png\" alt=\"\" /></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {-0, 30}, extent = {{-50, -10}, {50, 10}}, textString = "Using Standard Firmata", fontSize = 24)}));
+    <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/StandardFirmata.png\" alt=\"\" /></p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Text(visible = true, origin = {-0, 30}, extent = {{-50, -10}, {50, 10}}, textString = "Using Standard Firmata", fontSize = 24)}));
     end UsingStandardFirmata;
 
     annotation(Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
@@ -597,7 +610,7 @@ end BlinkLed;
   end Internal;
   annotation(preferredView = "info", Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})), Documentation(info = "<html> <h4>What Is ModelPlug?</h4>
 <p>ModelPlug is a library that allows you to connect your simulations with the real world.&nbsp;It uses an Arduino board (or compatible) to send analog and digital signals to physical devices and receive signals from them.</p>
-<p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/ModelPlugDocumentation-1.png\" alt=\"\" /></p>
+<p><img src=\"modelica://OpenModelicaArduino/Resources/Images/ModelPlugDocumentation-1.png\" alt=\"\" /></p>
 <h4>What Can You Do with It?</h4>
 <ul>
 <li>Interact with your model by using buttons, switches, knobs, etc.</li>
@@ -608,9 +621,9 @@ end BlinkLed;
 <p>&nbsp;</p>
 <p>With ModelPlug, you can combine simulation models and real hardware. For example, you can get data from your hardware, design a control, and test it in real time.</p>
 <p>&nbsp;</p>
-<p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/ModelPlugDocumentation-2.png\" alt=\"\" /></p>
+<p><img src=\"modelica://OpenModelicaArduino/Resources/Images/ModelPlugDocumentation-2.png\" alt=\"\" /></p>
 <p>&nbsp;You can build a real control panel and use it to control your simulation models.&nbsp;</p>
-<p><img src=\"Modelica://OpenModelicaArduino/Resources/Images/ModelPlugDocumentation-3.png\" alt=\"\" /></p>
+<p><img src=\"modelica://OpenModelicaArduino/Resources/Images/ModelPlugDocumentation-3.png\" alt=\"\" /></p>
 <h4>Overview of the Components</h4>
 <p>ModelPlug provides the following components:</p>
 <table style=\"height: 212px;\" width=\"479\">
@@ -623,12 +636,12 @@ end BlinkLed;
 <tr>
 <td>Analog&nbsp;input</td>
 <td>Reads analog values from the pins</td>
-<td style=\"text-align: center;\"><img src=\"Modelica://OpenModelicaArduino/Resources/Images/analogInput.png\" alt=\"\" />&nbsp;</td>
+<td style=\"text-align: center;\"><img src=\"modelica://OpenModelicaArduino/Resources/Images/analogInput.png\" alt=\"\" />&nbsp;</td>
 </tr>
 <tr>
 <td>Digital&nbsp;input</td>
 <td>Reads digital values from the pins</td>
-<td style=\"text-align: center;\">&nbsp;<img src=\"Modelica://OpenModelicaArduino/Resources/Images/digitalInput.png\" alt=\"\" /></td>
+<td style=\"text-align: center;\">&nbsp;<img src=\"modelica://OpenModelicaArduino/Resources/Images/digitalInput.png\" alt=\"\" /></td>
 </tr>
 <tr>
 <td><strong>&nbsp;</strong></td>
@@ -638,17 +651,17 @@ end BlinkLed;
 <tr>
 <td>Analog output</td>
 <td>Writes analog values to the pins</td>
-<td style=\"text-align: center;\">&nbsp;<img src=\"Modelica://OpenModelicaArduino/Resources/Images/analogOutput.png\" alt=\"\" /></td>
+<td style=\"text-align: center;\">&nbsp;<img src=\"modelica://OpenModelicaArduino/Resources/Images/analogOutput.png\" alt=\"\" /></td>
 </tr>
 <tr>
 <td>Digital output</td>
 <td>Writes digital values to the pins</td>
-<td style=\"text-align: center;\">&nbsp;<img src=\"Modelica://OpenModelicaArduino/Resources/Images/digitalOutput.png\" alt=\"\" /></td>
+<td style=\"text-align: center;\">&nbsp;<img src=\"modelica://OpenModelicaArduino/Resources/Images/digitalOutput.png\" alt=\"\" /></td>
 </tr>
 <tr>
 <td>Servo control</td>
 <td>Writes the angle to servo motors</td>
-<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"Modelica://OpenModelicaArduino/Resources/Images/servo.png\" alt=\"\" /></td>
+<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"modelica://OpenModelicaArduino/Resources/Images/servo.png\" alt=\"\" /></td>
 </tr>
 <tr>
 <td><strong>&nbsp;</strong></td>
@@ -658,22 +671,22 @@ end BlinkLed;
 <tr>
 <td>Arduino</td>
 <td>Connects to Arduino boards like Arduino Uno, Arduino Mega 2560</td>
-<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"Modelica://OpenModelicaArduino/Resources/Images/arduino.png\" alt=\"\" /></td>
+<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"modelica://OpenModelicaArduino/Resources/Images/arduino.png\" alt=\"\" /></td>
 </tr>
 <tr>
 <td>Arduino Leonardo</td>
 <td>Connects to Arduino Leonardo boards and boards using native USB</td>
-<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"Modelica://OpenModelicaArduino/Resources/Images/arduinoLeonardo.png\" alt=\"\" /></td>
+<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"modelica://OpenModelicaArduino/Resources/Images/arduinoLeonardo.png\" alt=\"\" /></td>
 </tr>
 <tr>
 <td>StandardFirmata</td>
 <td>Connects to Arduino-compatible boards</td>
-<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"Modelica://OpenModelicaArduino/Resources/Images/standard.png\" alt=\"\" /></td>
+<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"modelica://OpenModelicaArduino/Resources/Images/standard.png\" alt=\"\" /></td>
 </tr>
 <tr>
 <td>CustomFirmata</td>
 <td>Connects to any board supporting Firmata</td>
-<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"Modelica://OpenModelicaArduino/Resources/Images/custom.png\" alt=\"\" /></td>
+<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"modelica://OpenModelicaArduino/Resources/Images/custom.png\" alt=\"\" /></td>
 </tr>
 </tbody>
 </table>
@@ -705,5 +718,5 @@ end BlinkLed;
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p></html>", revisions = ""), version = "1.2", Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Rectangle(visible = true, fillColor = {190, 53, 19}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, radius = 25), Polygon(visible = true, origin = {-17.857, -4.643}, fillColor = {128, 128, 128}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{42.857, 59.643}, {42.857, 64.643}, {37.857, 69.643}, {32.857, 69.643}, {-17.143, 69.643}, {-42.143, 54.643}, {-57.143, 34.643}, {-65.22199999999999, 4.643}, {-57.143, -25.357}, {-42.143, -45.357}, {-17.143, -60.357}, {32.857, -60.357}, {37.857, -60.357}, {42.857, -55.357}, {42.857, -50.357}}, smooth = Smooth.Bezier), Polygon(visible = true, origin = {-17.857, -4.643}, fillColor = {255, 255, 255}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{42.857, 59.643}, {42.857, 64.643}, {37.857, 69.643}, {30.028, 54.643}, {-12.143, 59.643}, {-37.143, 44.643}, {-50.141, 26.339}, {-55.168, 4.643}, {-52.143, -20.357}, {-42.143, -42.453}, {-17.143, -60.357}, {32.857, -60.357}, {37.857, -60.357}, {42.857, -55.357}, {42.857, -50.357}}, smooth = Smooth.Bezier), Rectangle(visible = true, origin = {50, 27.5}, lineColor = {128, 128, 128}, fillColor = {255, 255, 255}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-25, -12.5}, {25, 12.5}}), Rectangle(visible = true, origin = {50, -27.5}, lineColor = {128, 128, 128}, fillColor = {255, 255, 255}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-25, -12.5}, {25, 12.5}}), Polygon(visible = true, origin = {-23.077, -0.385}, fillColor = {191, 191, 191}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{38.077, 50.385}, {38.077, 55.385}, {33.077, 55.385}, {-6.923, 55.385}, {-26.923, 45.385}, {-41.923, 30.385}, {-50.213, 0.385}, {-41.923, -29.615}, {-26.923, -44.615}, {-6.923, -54.615}, {33.077, -54.615}, {38.077, -54.615}, {38.077, -49.615}}, smooth = Smooth.Bezier), Polygon(visible = true, origin = {-17.857, -4.643}, lineColor = {128, 128, 128}, fillColor = {128, 128, 128}, points = {{42.857, 59.643}, {42.857, 64.643}, {37.857, 69.643}, {32.857, 69.643}, {-17.143, 69.643}, {-42.143, 54.643}, {-57.143, 34.643}, {-65.22199999999999, 4.643}, {-57.143, -25.357}, {-42.143, -45.357}, {-17.143, -60.357}, {32.857, -60.357}, {37.857, -60.357}, {42.857, -55.357}, {42.857, -50.357}}, smooth = Smooth.Bezier)}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})),
-  uses(Modelica_DeviceDrivers(version = "1.5.0")));
+  uses(Modelica_DeviceDrivers(version = "1.5.0"), Modelica(version = "3.2.2")));
 end OpenModelicaArduino;
