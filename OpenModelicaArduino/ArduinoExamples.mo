@@ -14,7 +14,7 @@ package ArduinoExamples
         Placement(visible = true, transformation(origin = {-3.55271e-15, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = true) annotation(
         Placement(visible = true, transformation(origin = {-60, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-      Boards.customBoard customBoard1 annotation(
+      Boards.customBoard customBoard1(BoardName = "Arduino UNO", Port = "/dev/ttyACM0")  annotation(
         Placement(visible = true, transformation(origin = {61, -21}, extent = {{-21, -21}, {21, 21}}, rotation = 0)));
     equation
       connect(digitalOutput1.pinConnector, customBoard1.boardConnector) annotation(

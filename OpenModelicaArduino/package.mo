@@ -335,6 +335,8 @@ end BlinkLed;
 
 
 
+
+
     model DimmingLed "Changing the intensity of an LED"
       extends Modelica.Icons.Example;
       OpenModelicaArduino.Boards.Arduino arduino(Port = "/dev/ttyACM0", ShowPinCapabilities = true) annotation(Placement(visible = true, transformation(origin = {30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -555,6 +557,72 @@ end BlinkLed;
       annotation(
         uses(OpenModelicaArduino(version = "1.2"), Modelica(version = "3.2.2"), Modelica_DeviceDrivers(version = "1.5.0")));
     end DCMotorWithPWM;
+
+
+
+
+
+
+    model DCMotorWithPID
+      extends Modelica.Icons.Example;
+      Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1(priority = "High", setPriority = true) annotation(
+        Placement(visible = true, transformation(origin = {92, 88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Components.Inertia inertia1(J = 1, a(start = 0), phi(start = 0), w(start = 0)) annotation(
+        Placement(visible = true, transformation(origin = {-22, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Components.Inertia inertia2(J = 1, a(start = 0), phi(start = 0), w(start = 0)) annotation(
+        Placement(visible = true, transformation(origin = {56, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Components.SpringDamper springDamper1(c = 20, d = 10, phi_rel0 = 0) annotation(
+        Placement(visible = true, transformation(origin = {16, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Sources.Torque torque1 annotation(
+        Placement(visible = true, transformation(origin = {-64, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Sources.ConstantTorque constantTorque1(tau_constant = 10) annotation(
+        Placement(visible = true, transformation(origin = {98, -86}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Sensors.SpeedSensor speedSensor1 annotation(
+        Placement(visible = true, transformation(origin = {88, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+      OpenModelicaArduino.Boards.CustomFirmata customFirmata1(BaudRate = 57600, Port = "/dev/ttyACM0", ShowPinCapabilities = true, UpdatePeriod = 0.02, UseDTR = true) annotation(
+        Placement(visible = true, transformation(origin = {-10, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      OpenModelicaArduino.Pins.AnalogOutput analogOutput1(MaxValue = 512, MinValue = -512, Pin = 5) annotation(
+        Placement(visible = true, transformation(origin = {46, 2}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+      OpenModelicaArduino.Pins.AnalogInput analogInput1(InitValue = 0, MaxValue = 512, MinValue = -512, Pin = 15) annotation(
+        Placement(visible = true, transformation(origin = {-64, 2}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+      OpenModelicaArduino.Pins.AnalogOutput analogOutput2(MaxValue = 512, MinValue = -512, Pin = 6) annotation(
+        Placement(visible = true, transformation(origin = {-54, 58}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Blocks.Sources.Sine sine1(amplitude = 512, freqHz = 0.5) annotation(
+        Placement(visible = true, transformation(origin = {-122, 58}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    equation
+      connect(sine1.y, analogOutput2.u) annotation(
+        Line(points = {{-110, 58}, {-64, 58}, {-64, 58}, {-64, 58}}, color = {0, 0, 127}));
+      connect(analogOutput2.pinConnector, customFirmata1.boardConnector) annotation(
+        Line(points = {{-44, 58}, {-10, 58}, {-10, 4}}));
+      connect(analogInput1.y, torque1.tau) annotation(
+        Line(points = {{-74, 2}, {-84, 2}, {-84, 2}, {-94, 2}, {-94, -86}, {-76, -86}}, color = {0, 0, 127}));
+      connect(analogInput1.pinConnector, customFirmata1.boardConnector) annotation(
+        Line(points = {{-54, 2}, {-10, 2}, {-10, 4}}));
+      connect(speedSensor1.w, analogOutput1.u) annotation(
+        Line(points = {{88, -25}, {89, -25}, {89, -23}, {88, -23}, {88, 3}, {56, 3}, {56, 1}}, color = {0, 0, 127}));
+      connect(analogOutput1.pinConnector, customFirmata1.boardConnector) annotation(
+        Line(points = {{36, 2}, {35.5, 2}, {35.5, 2}, {35, 2}, {35, 4}, {-10, 4}}));
+      connect(speedSensor1.flange, constantTorque1.flange) annotation(
+        Line(points = {{88, -46}, {88, -86}}));
+      connect(inertia2.flange_b, constantTorque1.flange) annotation(
+        Line(points = {{66, -86}, {88, -86}, {88, -86}, {88, -86}, {88, -86}, {88, -86}}));
+      connect(torque1.flange, inertia1.flange_a) annotation(
+        Line(points = {{-54, -86}, {-37, -86}, {-37, -86}, {-32, -86}, {-32, -86}, {-31, -86}, {-31, -86}, {-32, -86}}));
+      connect(springDamper1.flange_b, inertia2.flange_a) annotation(
+        Line(points = {{26, -86}, {36, -86}, {36, -86}, {46, -86}, {46, -86}, {46, -86}}));
+      connect(inertia1.flange_b, springDamper1.flange_a) annotation(
+        Line(points = {{-12, -86}, {-3, -86}, {-3, -86}, {6, -86}, {6, -86}, {6, -86}}));
+      annotation(
+        uses(OpenModelicaArduino(version = "1.2"), Modelica(version = "3.2.2"), Modelica_DeviceDrivers(version = "1.5.0")));
+    end DCMotorWithPID;
+
+
+
+
+
+
+
+
     annotation(Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
   end Examples;
 
