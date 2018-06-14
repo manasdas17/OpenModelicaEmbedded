@@ -7,6 +7,13 @@ package OpenModelicaArduino "Connecting OpenModelica with Arduino"
       <p>The first thing you need to do is upload the Firmware code to your board .</p>
       <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/FirmataLocation.png\" alt=\"\" /></p>
       <p><em>Figure 1. Location of the Firmware sketch.</em></p>
+      <p>If you wish to use PID(Proportional-integral-derivative) then use another firmware provided with the package. To open an firmware through Arduino IDE click on &ldquo;Open&ldquo; and Browse to the location where you extracted the package. Insdie the package folder look for folder named &ldquo;Firmware&ldquo; which contains a file named &ldquo;pidmata3.ino&ldquo;. Select that file and click open to load firmware in Arduino IDE.<br>
+      Important instructions for using above mentioned firmware &ldquo;pidmata3.ino&ldquo;:
+      <ul>
+      <li>To use PID uncomment the macro &ldquo;#define PID&ldquo; in firmware and follow further instructions in firmware.</li>
+      <li>If you are not using PID then comment the above mentioned macro.</li>
+      </ul>
+      </p>
       <p>Once the the Firmware code is in the board, you&nbsp;need to write down the serial port that it is using. This is important because you&nbsp;need to give the port name to OpenModelicaArduino in order to communicate with the board. You can find the serial port in Tools-&gt;Serial Port or in the bottom-right corner of the Arduino software window (see Figure 2). In Windows the serial port name is something like &ldquo;COM5&rdquo;, while in OS X and Linux the name will be something like &ldquo;/dev/ttyACM0&rdquo;. Now you&nbsp;are ready to make your&nbsp;first model.</p>
       <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/SerialPortLocation.png\" alt=\"\" /></p>
       <p><em>Figure 2. Finding the serial port being used.</em>&nbsp;</p>
@@ -58,6 +65,15 @@ package OpenModelicaArduino "Connecting OpenModelica with Arduino"
   end GettingStarted;
 
 
+
+
+
+
+
+
+
+
+
   package Pins "Components to access the board I/O"
     extends Internal.Icons.Block;
 
@@ -76,6 +92,10 @@ equation
  <p>Not all pins support analog input. Check the documentation of your board to find the pin capabilities.</p>
  <p>&nbsp;</p></html>", revisions = ""), Icon(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -85}, {100, 85}}, radius = 40), Rectangle(fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-90, -60}, {90, 60}}, radius = 40), Text(origin = {0, -130}, extent = {{-100, -20}, {100, 20}}, textString = "Pin %Pin"), Text(origin = {0, 10},extent = {{-75, -15}, {75, 25}}, textString = "Analog", textStyle = {TextStyle.Bold}), Text(origin = {0, -20}, extent = {{-75, -15}, {75, 25}}, textString = "Input", textStyle = {TextStyle.Bold})}), Diagram(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -75}, {100, 75}}, radius = 40), Rectangle(fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-90, -50}, {90, 50}}, radius = 40), Text(origin = {0, 20},extent = {{-75, -15}, {75, 25}}, textString = "Analog", textStyle = {TextStyle.Bold}), Text(origin = {0, -20}, extent = {{-75, -15}, {75, 25}}, textString = "Input", textStyle = {TextStyle.Bold})}));
 end AnalogInput;
+
+
+
+
 
 
 
@@ -145,6 +165,9 @@ end AnalogOutput;
 
 
 
+
+
+
     model Servo "Controls a servo motor attached to the specified pin"
       extends OpenModelicaArduino.Internal.Icons.Block;
       Modelica.Blocks.Interfaces.RealInput u annotation(Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-100, -0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -188,6 +211,7 @@ end AnalogOutput;
       annotation(Documentation(info = "<html><p>This component provides a ready-to-use configuration for the Arduino board. This component has been tested with Arduino Uno, Arduino Mega 2560, and Arduino Mini, but it should work with any Arduino board.</p>
   <p>When running the simulation, you will get a list of the capabilities of every pin. If you want to stop showing the capabilities every time you simulate, you need to set the property 'ShowCapabilities' to false. If you are not sure about the location of a specific pin in your board, you should&nbsp;check the documentation for&nbsp;your board.</p></html>", revisions = ""), Icon(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Polygon(origin = {10.562, 9.352}, fillColor = {42, 85, 94}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-85.751, 70.648}, {-102.737, 66.761}, {-105.751, 50.648}, {-105.751, -69.352}, {-99.475, -85.465}, {-85.751, -89.352}, {74.249, -89.352}, {81.746, -83.29}, {84.249, -76.041}, {84.249, 34.141}, {79.249, 43.202}, {54.249, 43.202}, {52.314, 67.486}, {31.729, 70.648}, {-85.751, 70.648}}, smooth = Smooth.Bezier), Rectangle(origin = {-71.211, 40}, fillColor = {106, 108, 116}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-32.24, -20}, {32.24, 20}}, radius = 10), Rectangle(origin = {-79.366, -45.041}, fillPattern = FillPattern.Solid, extent = {{-25.915, -15.041}, {25.915, 15.041}}, radius = 10), Text(origin = {0, -130}, extent = {{-100, -20}, {100, 20}}, textString = "%Port"), Text(origin = {5, -30}, lineColor = {255, 255, 255}, extent = {{-75, 30}, {75, -30}}, textString = "Arduino")}), Diagram(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Polygon(origin = {10.562, 9.352}, fillColor = {42, 85, 94}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-85.751, 70.648}, {-102.737, 66.761}, {-105.751, 50.648}, {-105.751, -69.352}, {-99.475, -85.465}, {-85.751, -89.352}, {74.249, -89.352}, {81.746, -83.29}, {84.249, -76.041}, {84.249, 34.141}, {79.249, 43.202}, {54.249, 43.202}, {52.314, 67.486}, {31.729, 70.648}, {-85.751, 70.648}}, smooth = Smooth.Bezier), Rectangle(origin = {-71.211, 40}, fillColor = {106, 108, 116}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-32.24, -20}, {32.24, 20}}, radius = 10), Rectangle(origin = {-79.366, -45.041}, fillPattern = FillPattern.Solid, extent = {{-25.915, -15.041}, {25.915, 15.041}}, radius = 10), Ellipse(origin = {-8.451, 32.225}, lineColor = {255, 255, 255}, fillColor = {42, 85, 94}, fillPattern = FillPattern.Solid, lineThickness = 5, extent = {{-15, -12.225}, {15, 12.225}}, endAngle = 360), Ellipse(origin = {21.55, 32.22}, lineColor = {255, 255, 255}, fillColor = {42, 85, 94}, fillPattern = FillPattern.Solid, lineThickness = 5, extent = {{-15, -12.23}, {15, 12.23}}, endAngle = 360), Text(origin = {-5, -15}, lineColor = {255, 255, 255}, extent = {{-75, 25}, {95, -35}}, textString = "Arduino", textStyle = {TextStyle.Bold})}));
     end Arduino;
+
 
 
 
@@ -244,6 +268,7 @@ end AnalogOutput;
 
 
 
+
     model ArduinoLeonardo "Component with configuration for Arduino Leonardo boards"
       parameter Internal.Types.SerialPort Port = "COM1" "Name of the serial port";
       parameter Boolean ShowPinCapabilities = true "Set to true if you want to see the capabilities of the pins in your board";
@@ -289,6 +314,11 @@ equation
 end customBoard;
 
 
+
+
+
+
+
     annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics = {Polygon(visible = true, origin = {12.096, 9.352}, fillColor = {0, 128, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-85.75100000000001, 70.648}, {-102.737, 66.761}, {-105.751, 50.648}, {-105.751, -69.352}, {-99.47499999999999, -85.465}, {-85.75100000000001, -89.352}, {74.249, -89.352}, {81.746, -83.29000000000001}, {86.32899999999999, -74.352}, {84.249, 34.141}, {82.185, 50.648}, {74.732, 67.486}, {52.373, 70.648}, {31.729, 70.648}}, smooth = Smooth.Bezier), Rectangle(visible = true, origin = {-69.67700000000001, 40}, fillColor = {106, 108, 116}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-32.24, -20}, {32.24, 20}}, radius = 10), Rectangle(visible = true, origin = {-77.83199999999999, -45.041}, fillPattern = FillPattern.Solid, extent = {{-25.915, -15.041}, {25.915, 15.041}}, radius = 10), Rectangle(visible = true, origin = {24.177, 70}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-54.177, -6.186}, {54.177, 6.186}}, radius = 10), Rectangle(visible = true, origin = {23.906, -63.814}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-64.17700000000001, -6.186}, {64.17700000000001, 6.186}}, radius = 10), Rectangle(visible = true, origin = {21.91, 0}, fillPattern = FillPattern.Solid, extent = {{-28.09, -25}, {28.09, 25}}, radius = 10), Rectangle(visible = true, origin = {78.083, -63.624}, fillColor = {250, 105, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {68.083, -63.624}, fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {58.083, -63.624}, fillColor = {250, 105, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {48.083, -63.624}, fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {38.083, -63.624}, fillColor = {250, 105, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {28.083, -63.624}, fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {70.00100000000001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {60.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {50.001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {40.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {30.001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {20.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {10.001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {0.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-9.999000000000001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-19.999, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-31.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-21.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-11.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-1.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50)}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
   end Boards;
 
@@ -299,13 +329,17 @@ model BlinkLed "Basic example of blinking an LED"
   extends Modelica.Icons.Example;
   replaceable OpenModelicaArduino.Boards.Arduino arduino(Port = "/dev/ttyACM0", ShowPinCapabilities = true, UseDTR = false) annotation(Placement(visible = true, transformation(origin = {30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   OpenModelicaArduino.Pins.DigitalOutput digitalOutput(Pin = 9) annotation(Placement(visible = true, transformation(origin = {0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanPulse booleanPulse(period = 1, startTime = 0, width = 50) annotation(Placement(visible = true, transformation(origin = {-30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
     Placement(visible = true, transformation(origin = {35, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanPulse booleanPulse annotation(
+        Placement(visible = true, transformation(origin = {-30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
-  connect(digitalOutput.pinConnector, arduino.boardConnector) annotation(Line(visible = true, origin = {20, -10}, points = {{-10, 0}, {10, -0}}, color = {72, 73, 79}));
-  connect(booleanPulse.y, digitalOutput.u) annotation(Line(visible = true, origin = {-14.5, -10}, points = {{-4.5, 0}, {4.5, 0}}, color = {255, 0, 255}));
-  annotation(experiment(StopTime = 10, Interval = 0.001), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = false, initialScale = 0.1, grid = {10, 10})), preferredView = "diagram", Documentation(info = "<html><h4>Hardware Components&nbsp;Used&nbsp;</h4>
+      connect(digitalOutput.pinConnector, arduino.boardConnector) annotation(
+        Line(points = {{10, -10}, {30, -10}}, color = {72, 73, 79}));
+      connect(booleanPulse.y,digitalOutput.u) annotation(
+        Line(points = {{-19, -10}, {-10, -10}}, color = {255, 0, 255}));
+      annotation(experiment(StopTime = 10, Interval = 0.001), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = false, initialScale = 0.1, grid = {10, 10})), preferredView = "diagram", Documentation(info = "<html><h4>Hardware Components&nbsp;Used&nbsp;</h4>
 <ul>
 <li>1 Arduino board</li>
 <li>1 LED (optional)</li>
@@ -651,6 +685,8 @@ end BlinkLed;
       
         external "C" value = readAnalogPin(pin, min, max, init, board) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaArduino/Resources/Include", LibraryDirectory = "modelica://OpenModelicaArduino/Resources/Library");
       end readAnalogPin;
+
+
 
       class FirmataBoardObject
         extends ExternalObject;
