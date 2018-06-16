@@ -213,25 +213,25 @@ package ArduinoExamples
       extends Modelica.Icons.Example;
       OpenModelicaArduino.Boards.Arduino arduino1(Port = "/dev/ttyACM0") annotation(
         Placement(visible = true, transformation(origin = {60, 4.21885e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-      OpenModelicaArduino.Pins.AnalogOutput analogOutput1(MaxValue = 255, MinValue = 0, Pin = 9) annotation(
-        Placement(visible = true, transformation(origin = {-3.55271e-15, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-      OpenModelicaArduino.Pins.AnalogOutput analogOutput2(MaxValue = 255, MinValue = 0, Pin = 10) annotation(
-        Placement(visible = true, transformation(origin = {-3.55271e-15, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
         Placement(visible = true, transformation(origin = {60, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-      Modelica.Blocks.Sources.Pulse pulse1(amplitude = 255, period = 20, startTime = 5, width = 15) annotation(
-        Placement(visible = true, transformation(origin = {-60, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-      Modelica.Blocks.Sources.Pulse pulse2(amplitude = 255, period = 20, startTime = 8, width = 10) annotation(
-        Placement(visible = true, transformation(origin = {-60, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  OpenModelicaArduino.Pins.DigitalOutput digitalOutput1(Pin = 8)  annotation(
+        Placement(visible = true, transformation(origin = {1.33227e-15, 26}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+  OpenModelicaArduino.Pins.DigitalOutput digitalOutput2(Pin = 9)  annotation(
+        Placement(visible = true, transformation(origin = {4, -40}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanPulse booleanPulse1(period = 20)  annotation(
+        Placement(visible = true, transformation(origin = {-65, 25}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanPulse booleanPulse2(period = 20, startTime = 10)  annotation(
+        Placement(visible = true, transformation(origin = {-60, -40}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
     equation
-      connect(pulse2.y, analogOutput2.u) annotation(
-        Line(points = {{-38, -40}, {-20, -40}, {-20, -40}, {-20, -40}}, color = {0, 0, 127}));
-      connect(analogOutput2.pinConnector, arduino1.boardConnector) annotation(
-        Line(points = {{20, -40}, {60, -40}, {60, 0}, {60, 0}}));
-      connect(analogOutput1.pinConnector, arduino1.boardConnector) annotation(
-        Line(points = {{20, 20}, {60, 20}, {60, 0}, {60, 0}, {60, 0}}));
-      connect(pulse1.y, analogOutput1.u) annotation(
-        Line(points = {{-38, 20}, {-22, 20}, {-22, 20}, {-20, 20}}, color = {0, 0, 127}));
+      connect(booleanPulse1.y, digitalOutput1.u) annotation(
+        Line(points = {{-50, 26}, {-14, 26}}, color = {255, 0, 255}));
+      connect(digitalOutput1.pinConnector, arduino1.boardConnector) annotation(
+        Line(points = {{14, 26}, {60, 26}, {60, 0}}));
+    connect(booleanPulse2.y, digitalOutput2.u) annotation(
+        Line(points = {{-44, -40}, {-10, -40}}, color = {255, 0, 255}));
+    connect(digitalOutput2.pinConnector, arduino1.boardConnector) annotation(
+        Line(points = {{18, -40}, {60, -40}, {60, 0}}));
     end ex2_dcmotor_both;
 
     model ex3_dcmotor_loop
@@ -265,7 +265,7 @@ package ArduinoExamples
 
     model ex1_pot_threshold
       extends Modelica.Icons.Example;
-      OpenModelicaArduino.Pins.AnalogInput analogInput1(MaxValue = 1023, MinValue = 0, Pin = 16) annotation(
+      OpenModelicaArduino.Pins.AnalogInput analogInput1(MaxValue = 1023, MinValue = 0, Pin = 23, adcResolution = 12) annotation(
         Placement(visible = true, transformation(origin = {28, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       OpenModelicaArduino.Pins.DigitalOutput digitalOutput1(Pin = 9) annotation(
         Placement(visible = true, transformation(origin = {-50, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -457,6 +457,7 @@ package ArduinoExamples
       annotation(
         uses(Modelica_DeviceDrivers(version = "1.5.0"), OpenModelicaArduino(version = "1.2"), Modelica(version = "3.2.2")));
     end ex3_servo_loop;
+
 
 
     model ex4_servo_pot

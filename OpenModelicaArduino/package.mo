@@ -83,9 +83,9 @@ model AnalogInput "Reads an analog signal from the specified pin"
   parameter Integer Pin = 0 "Number of the analog pin";
   OpenModelicaArduino.Internal.Interfaces.PinConnector pinConnector annotation(Placement(visible = true, transformation(origin = {-100, -0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-100, -0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   parameter Real InitValue = 0 "Initial value until the board responds" annotation(Dialog(group = "Initialization"));
-  parameter Real MinValue = 0 "Minimum value when the ADC reads 0" annotation(Dialog(group = "Scaling"));
-  parameter Real MaxValue = 1 "Maximum value when the ADC reads 1024" annotation(Dialog(group = "Scaling"));
-  parameter Integer adcResolution = 10 "Resolution of the ADC your board is using" annotation(Dialog(group = "Scaling"));
+  parameter Real MinValue = 0 "Minimum value of ADC" annotation(Dialog(group = "Scaling"));
+  parameter Real MaxValue = 1 "Maximum value of ADC" annotation(Dialog(group = "Scaling"));
+  parameter Integer adcResolution = 10 "Resolution of the ADC in your microcontroller" annotation(Dialog(group = "Scaling"));
 equation
   y = OpenModelicaArduino.Internal.ExternalFunctions.readAnalogPin(Pin, MinValue, MaxValue, InitValue, pinConnector, adcResolution);
   annotation(Documentation(info = "<html><p>Reads an analog signal from the specified pin. This component uses the 'analogRead' function of Arduino.</p>
@@ -93,6 +93,9 @@ equation
  <p>Not all pins support analog input. Check the documentation of your board to find the pin capabilities.</p>
  <p>&nbsp;</p></html>", revisions = ""), Icon(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -85}, {100, 85}}, radius = 40), Rectangle(fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-90, -60}, {90, 60}}, radius = 40), Text(origin = {0, -130}, extent = {{-100, -20}, {100, 20}}, textString = "Pin %Pin"), Text(origin = {0, 10},extent = {{-75, -15}, {75, 25}}, textString = "Analog", textStyle = {TextStyle.Bold}), Text(origin = {0, -20}, extent = {{-75, -15}, {75, 25}}, textString = "Input", textStyle = {TextStyle.Bold})}), Diagram(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -75}, {100, 75}}, radius = 40), Rectangle(fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-90, -50}, {90, 50}}, radius = 40), Text(origin = {0, 20},extent = {{-75, -15}, {75, 25}}, textString = "Analog", textStyle = {TextStyle.Bold}), Text(origin = {0, -20}, extent = {{-75, -15}, {75, 25}}, textString = "Input", textStyle = {TextStyle.Bold})}));
 end AnalogInput;
+
+
+
 
 
 
@@ -183,8 +186,10 @@ end AnalogOutput;
       OpenModelicaArduino.Internal.Interfaces.PinConnector pinConnector annotation(Placement(visible = true, transformation(origin = {100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {100, -0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       parameter Integer Pin = 0 "Pin number of the servo";
       parameter OpenModelicaArduino.Internal.Types.ServoUnit InputUnit "if None (Default) the servo receives a signal between 0 and 1. If Degrees the control signal is from 0 to 180. If Radians the signal is from 0 to Pi.";
-      parameter Integer MinPulse = 544 "The pulse width, in microseconds, corresponding to the minimum (0-degree) angle on the servo." annotation(Dialog(group = "Advanced"));
-      parameter Integer MaxPulse = 2400 "The pulse width, in microseconds, corresponding to the maximum (180-degree) angle on the servo." annotation(Dialog(group = "Advanced"));
+      parameter Integer MinPulse = 544 "The pulse width, in microseconds, corresponding to the minimum (0-degree) angle on the servo.
+      (Ignore this parameter if using Tiva C board)" annotation(Dialog(group = "Advanced"));
+      parameter Integer MaxPulse = 2400 "The pulse width, in microseconds, corresponding to the maximum (180-degree) angle on the servo.
+      (Ignore this parameter if using Tiva C board)" annotation(Dialog(group = "Advanced"));
       Real outputSignal;
     equation
       outputSignal = if InputUnit == OpenModelicaArduino.Internal.Types.ServoUnit.None then u else if InputUnit == OpenModelicaArduino.Internal.Types.ServoUnit.Degrees then u / 180 else if InputUnit == OpenModelicaArduino.Internal.Types.ServoUnit.Radians then u / Modelica.Constants.pi else u;
@@ -193,6 +198,8 @@ end AnalogOutput;
       <p><strong>Signal Range:</strong> By default, the range goes from 0 to 1, which corresponds to 0 to 180 degrees. If you want to input values in radians, you can change the parameter 'InputUnit' from 'Degrees' to 'Radians'.</p>
       <p>If your servo does not work correctly with the default settings, you can set the parameters 'MinPulse' and 'MaxPulse'. To get more information on how to configure a servo, you can check the documentation of the Servo library,&nbsp;<a href=\"http://arduino.cc/en/reference/servo\">http://arduino.cc/en/reference/servo</a>.</p></html>", revisions = ""), Icon(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -85}, {100, 85}}, radius = 40), Rectangle(fillColor = {0,  255, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-90, -60}, {90, 60}}, radius = 40), Text(origin = {0, -130}, extent = {{-100, -20}, {100, 20}}, textString = "Pin %Pin"), Text(extent = {{-75, -25}, {75, 25}}, textString = "Servo", textStyle = {TextStyle.Bold})}), Diagram(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -75}, {100, 75}}, radius = 40), Rectangle(fillColor = {0,  255, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-90, -50}, {90, 50}}, radius = 40), Text(extent = {{-75, -25}, {75, 25}}, textString = "Servo", textStyle = {TextStyle.Bold})}));
     end Servo;
+
+
 
 
 
