@@ -85,13 +85,22 @@ model AnalogInput "Reads an analog signal from the specified pin"
   parameter Real InitValue = 0 "Initial value until the board responds" annotation(Dialog(group = "Initialization"));
   parameter Real MinValue = 0 "Minimum value when the ADC reads 0" annotation(Dialog(group = "Scaling"));
   parameter Real MaxValue = 1 "Maximum value when the ADC reads 1024" annotation(Dialog(group = "Scaling"));
+  parameter Integer adcResolution = 10 "Resolution of the ADC your board is using" annotation(Dialog(group = "Scaling"));
 equation
-  y = OpenModelicaArduino.Internal.ExternalFunctions.readAnalogPin(Pin, MinValue, MaxValue, InitValue, pinConnector);
+  y = OpenModelicaArduino.Internal.ExternalFunctions.readAnalogPin(Pin, MinValue, MaxValue, InitValue, pinConnector, adcResolution);
   annotation(Documentation(info = "<html><p>Reads an analog signal from the specified pin. This component uses the 'analogRead' function of Arduino.</p>
  <p><strong>Signal Range:</strong> By default, the signal goes from 0 to 1 where 0 represents no voltage and 1 the voltage reference of the ADC in the board. This signal can be scaled by setting the 'MinValue' and 'MaxValue' parameters.</p>
  <p>Not all pins support analog input. Check the documentation of your board to find the pin capabilities.</p>
  <p>&nbsp;</p></html>", revisions = ""), Icon(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -85}, {100, 85}}, radius = 40), Rectangle(fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-90, -60}, {90, 60}}, radius = 40), Text(origin = {0, -130}, extent = {{-100, -20}, {100, 20}}, textString = "Pin %Pin"), Text(origin = {0, 10},extent = {{-75, -15}, {75, 25}}, textString = "Analog", textStyle = {TextStyle.Bold}), Text(origin = {0, -20}, extent = {{-75, -15}, {75, 25}}, textString = "Input", textStyle = {TextStyle.Bold})}), Diagram(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -75}, {100, 75}}, radius = 40), Rectangle(fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-90, -50}, {90, 50}}, radius = 40), Text(origin = {0, 20},extent = {{-75, -15}, {75, 25}}, textString = "Analog", textStyle = {TextStyle.Bold}), Text(origin = {0, -20}, extent = {{-75, -15}, {75, 25}}, textString = "Input", textStyle = {TextStyle.Bold})}));
 end AnalogInput;
+
+
+
+
+
+
+
+
 
 
 
@@ -184,6 +193,7 @@ end AnalogOutput;
       <p><strong>Signal Range:</strong> By default, the range goes from 0 to 1, which corresponds to 0 to 180 degrees. If you want to input values in radians, you can change the parameter 'InputUnit' from 'Degrees' to 'Radians'.</p>
       <p>If your servo does not work correctly with the default settings, you can set the parameters 'MinPulse' and 'MaxPulse'. To get more information on how to configure a servo, you can check the documentation of the Servo library,&nbsp;<a href=\"http://arduino.cc/en/reference/servo\">http://arduino.cc/en/reference/servo</a>.</p></html>", revisions = ""), Icon(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -85}, {100, 85}}, radius = 40), Rectangle(fillColor = {0,  255, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-90, -60}, {90, 60}}, radius = 40), Text(origin = {0, -130}, extent = {{-100, -20}, {100, 20}}, textString = "Pin %Pin"), Text(extent = {{-75, -25}, {75, 25}}, textString = "Servo", textStyle = {TextStyle.Bold})}), Diagram(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -75}, {100, 75}}, radius = 40), Rectangle(fillColor = {0,  255, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-90, -50}, {90, 50}}, radius = 40), Text(extent = {{-75, -25}, {75, 25}}, textString = "Servo", textStyle = {TextStyle.Bold})}));
     end Servo;
+
 
 
     annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(visible = true, origin = {-30, 30}, fillColor = {250, 105, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-25, -25}, {25, 25}}, radius = 50), Rectangle(visible = true, origin = {30, 30}, fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-25, -25}, {25, 25}}, radius = 50), Rectangle(visible = true, origin = {-30, -30}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-25, -25}, {25, 25}}, radius = 50), Rectangle(visible = true, origin = {30, -30}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-25, -25}, {25, 25}}, radius = 50)}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
@@ -319,6 +329,7 @@ end customBoard;
 
 
 
+
     annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics = {Polygon(visible = true, origin = {12.096, 9.352}, fillColor = {0, 128, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-85.75100000000001, 70.648}, {-102.737, 66.761}, {-105.751, 50.648}, {-105.751, -69.352}, {-99.47499999999999, -85.465}, {-85.75100000000001, -89.352}, {74.249, -89.352}, {81.746, -83.29000000000001}, {86.32899999999999, -74.352}, {84.249, 34.141}, {82.185, 50.648}, {74.732, 67.486}, {52.373, 70.648}, {31.729, 70.648}}, smooth = Smooth.Bezier), Rectangle(visible = true, origin = {-69.67700000000001, 40}, fillColor = {106, 108, 116}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-32.24, -20}, {32.24, 20}}, radius = 10), Rectangle(visible = true, origin = {-77.83199999999999, -45.041}, fillPattern = FillPattern.Solid, extent = {{-25.915, -15.041}, {25.915, 15.041}}, radius = 10), Rectangle(visible = true, origin = {24.177, 70}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-54.177, -6.186}, {54.177, 6.186}}, radius = 10), Rectangle(visible = true, origin = {23.906, -63.814}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-64.17700000000001, -6.186}, {64.17700000000001, 6.186}}, radius = 10), Rectangle(visible = true, origin = {21.91, 0}, fillPattern = FillPattern.Solid, extent = {{-28.09, -25}, {28.09, 25}}, radius = 10), Rectangle(visible = true, origin = {78.083, -63.624}, fillColor = {250, 105, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {68.083, -63.624}, fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {58.083, -63.624}, fillColor = {250, 105, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {48.083, -63.624}, fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {38.083, -63.624}, fillColor = {250, 105, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {28.083, -63.624}, fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {70.00100000000001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {60.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {50.001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {40.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {30.001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {20.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {10.001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {0.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-9.999000000000001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-19.999, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-31.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-21.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-11.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-1.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50)}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
   end Boards;
 
@@ -328,7 +339,7 @@ end customBoard;
 model BlinkLed "Basic example of blinking an LED"
   extends Modelica.Icons.Example;
   replaceable OpenModelicaArduino.Boards.Arduino arduino(Port = "/dev/ttyACM0", ShowPinCapabilities = true, UseDTR = false) annotation(Placement(visible = true, transformation(origin = {30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  OpenModelicaArduino.Pins.DigitalOutput digitalOutput(Pin = 9) annotation(Placement(visible = true, transformation(origin = {0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  OpenModelicaArduino.Pins.DigitalOutput digitalOutput(Pin = 30) annotation(Placement(visible = true, transformation(origin = {0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
     Placement(visible = true, transformation(origin = {35, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanPulse booleanPulse annotation(
@@ -374,13 +385,18 @@ end BlinkLed;
     model DimmingLed "Changing the intensity of an LED"
       extends Modelica.Icons.Example;
       OpenModelicaArduino.Boards.Arduino arduino(Port = "/dev/ttyACM0", ShowPinCapabilities = true) annotation(Placement(visible = true, transformation(origin = {30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      Pins.AnalogOutput analogOutput(Pin = 9) annotation(Placement(visible = true, transformation(origin = {0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      Modelica.Blocks.Sources.Sine sine(amplitude = 1 / 2, freqHz = 1 / 4, offset = 1 / 2) annotation(Placement(visible = true, transformation(origin = {-30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Pins.AnalogOutput analogOutput(MaxValue = 512, MinValue = -512, Pin = 30) annotation(Placement(visible = true, transformation(origin = {0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
-        Placement(visible = true, transformation(origin = {35, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+        Placement(visible = true, transformation(origin = {35, 25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  OpenModelicaArduino.Pins.AnalogInput analogInput1(MaxValue = 512, MinValue = -512, Pin = 23)  annotation(
+        Placement(visible = true, transformation(origin = {-30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     equation
-      connect(sine.y, analogOutput.u) annotation(Line(visible = true, origin = {-14.5, -10}, points = {{-4.5, 0}, {4.5, 0}}, color = {0, 0, 127}));
-      connect(analogOutput.pinConnector, arduino.boardConnector) annotation(Line(visible = true, origin = {20, -10}, points = {{-10, -0}, {10, 0}}));
+      connect(analogInput1.pinConnector, arduino.boardConnector) annotation(
+        Line(points = {{-40, -10}, {-45, -10}, {-45, -40}, {30, -40}, {30, -10}, {30, -10}}));
+      connect(analogInput1.y, analogOutput.u) annotation(
+        Line(points = {{-20, -10}, {-10, -10}, {-10, -10}, {-10, -10}}, color = {0, 0, 127}));
+      connect(analogOutput.pinConnector, arduino.boardConnector) annotation(
+        Line(visible = true, origin = {20, -10}, points = {{-10, -0}, {10, 0}}));
       annotation(experiment(Interval = 0.001, __Wolfram_SynchronizeWithRealTime = true), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = false, initialScale = 0.1, grid = {10, 10})), preferredView = "diagram", Documentation(info = "<html><h4>Hardware&nbsp;Components&nbsp;Used</h4>
     <ul>
     <li>1 Arduino board</li>
@@ -455,10 +471,10 @@ end BlinkLed;
     model SimpleONOFF "A simple On/Off controller"
       extends Modelica.Icons.Example;
       OpenModelicaArduino.Boards.Arduino arduino(Port = "/dev/ttyACM0")  annotation(Placement(visible = true, transformation(origin = {0, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      OpenModelicaArduino.Pins.AnalogInput analogInput1( MaxValue = 3.3 * 100,Pin = 16) annotation(Placement(visible = true, transformation(origin = {30, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      OpenModelicaArduino.Pins.AnalogInput analogInput1(MaxValue = 3.3 * 100,Pin = 23, adcResolution = 12) annotation(Placement(visible = true, transformation(origin = {30, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelica.Blocks.Sources.Constant Reference(k = 40) annotation(Placement(visible = true, transformation(origin = {35, -25}, extent = {{-10, -10}, {10, 10}}, rotation = -180)));
       Modelica.Blocks.Math.Add add1(k2 = +1, k1 = -1) annotation(Placement(visible = true, transformation(origin = {-0, -25}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-      Pins.DigitalOutput digitalOutput(Pin = 10) annotation(Placement(visible = true, transformation(origin = {-30, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Pins.DigitalOutput digitalOutput(Pin = 30) annotation(Placement(visible = true, transformation(origin = {-30, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelica.Blocks.Logical.Hysteresis hysteresis(uLow = -1, uHigh = 1) annotation(Placement(visible = true, transformation(origin = {-30, -25}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
         Placement(visible = true, transformation(origin = {42.5, 42.5}, extent = {{-7.5, -7.5}, {7.5, 7.5}}, rotation = 0)));
@@ -485,6 +501,17 @@ end BlinkLed;
     <p><img src=\"modelica://OpenModelicaArduino/Resources/Images/SimpleONOFF.png\" alt=\"\" /></p>
     <p>The target temperature is set by a constant component. The measured temperature is subtracted from the reference in order to obtain the error. The error signal is fed into the hysteresis component, which will send a Boolean signal to control the relay. If you want cooling instead of heating, you need to invert the logic of this signal.</p></html>"), Diagram(coordinateSystem(extent = {{-50, -50}, {50, 50}}, initialScale = 0.1, grid = {5, 5})));
     end SimpleONOFF;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -561,17 +588,17 @@ end BlinkLed;
         Placement(visible = true, transformation(origin = {13, 29}, extent = {{-25, -25}, {25, 25}}, rotation = 0)));
       Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
         Placement(visible = true, transformation(origin = {54, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      OpenModelicaArduino.Pins.AnalogOutput analogOutput1(MaxValue = 255, Pin = 9) annotation(
+      OpenModelicaArduino.Pins.AnalogOutput analogOutput1(MaxValue = 255, Pin = 30) annotation(
         Placement(visible = true, transformation(origin = {-57, 29}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-      OpenModelicaArduino.Pins.DigitalOutput digitalOutput1(Pin = 6) annotation(
+      OpenModelicaArduino.Pins.DigitalOutput digitalOutput1(Pin = 8) annotation(
         Placement(visible = true, transformation(origin = {-45, -23}, extent = {{-13, -13}, {13, 13}}, rotation = 90)));
-      OpenModelicaArduino.Pins.DigitalOutput digitalOutput2(Pin = 7) annotation(
+      OpenModelicaArduino.Pins.DigitalOutput digitalOutput2(Pin = 9) annotation(
         Placement(visible = true, transformation(origin = {50, -28}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
       Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = true) annotation(
         Placement(visible = true, transformation(origin = {-70, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelica.Blocks.Sources.BooleanConstant booleanConstant2(k = false) annotation(
         Placement(visible = true, transformation(origin = {14, -74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      OpenModelicaArduino.Pins.AnalogInput analogInput1(Pin = 16) annotation(
+      OpenModelicaArduino.Pins.AnalogInput analogInput1(MaxValue = 1024, Pin = 23) annotation(
         Placement(visible = true, transformation(origin = {-56, 74}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
     equation
       connect(analogInput1.y, analogOutput1.u) annotation(
@@ -681,10 +708,18 @@ end BlinkLed;
         input Real max;
         input Real init;
         input Integer board;
+        input Integer adcResolution;
         output Real value;
       
-        external "C" value = readAnalogPin(pin, min, max, init, board) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaArduino/Resources/Include", LibraryDirectory = "modelica://OpenModelicaArduino/Resources/Library");
+        external "C" value = readAnalogPin(pin, min, max, init, board, adcResolution) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaArduino/Resources/Include", LibraryDirectory = "modelica://OpenModelicaArduino/Resources/Library");
       end readAnalogPin;
+
+
+
+
+
+
+
 
 
 
@@ -756,6 +791,7 @@ end BlinkLed;
       
         external "C" writeServoPin(pin, board, value, MinPulse, MaxPulse) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaArduino/Resources/Include", LibraryDirectory = "modelica://OpenModelicaArduino/Resources/Library");
       end writeServoPin;
+
       annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics = {Text(visible = true, origin = {11.425, 9.596}, extent = {{-101.424, -59.596}, {78.57599999999999, 40.404}}, textString = "EF")}), Documentation(info = "", revisions = ""), Diagram(coordinateSystem(extent = {{-148.5, 105}, {148.5, -105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10})), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(visible = true, fillColor = {209, 209, 209}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {75, 75}}), Polygon(visible = true, fillColor = {236, 236, 236}, fillPattern = FillPattern.Solid, points = {{-100, 75}, {-75, 100}, {100, 100}, {75, 75}}), Polygon(visible = true, fillColor = {177, 177, 177}, fillPattern = FillPattern.Solid, points = {{75, -100}, {75, 75}, {100, 100}, {100, -75}}), Text(visible = true, extent = {{-95.95, -91.88}, {63.97, 71.52}}, textString = "C")}));
     end ExternalFunctions;
 

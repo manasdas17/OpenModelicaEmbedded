@@ -249,7 +249,7 @@ double firmataBoard::readAnalogPin(uint32_t pin,double min, double max, double i
 		if(pin_info[pin].mode!=MODE_ANALOG)
 			setPinMode(pin,MODE_ANALOG);
 		if(pin_info[pin].ready)
-			return min+((pin_info[pin].value/1023.0)*(max-min));
+			return min+((pin_info[pin].value/4095.0)*(max-min));
 		else
 			return init;
 	}

@@ -19,7 +19,7 @@ EXPORT void updateBoard(int id);
 EXPORT int getBoardId(void* object);
 
 
-EXPORT double readAnalogPin  (int pin, double min, double max, double init, int id);
+EXPORT double readAnalogPin  (int pin, double min, double max, double init, int id, int adcResolution);
 EXPORT int    readDigitalPin (int pin, int init, int id);
 EXPORT void   writeAnalogPin (int pin, int id,double value);
 EXPORT void   writeDigitalPin(int pin, int id,int value);

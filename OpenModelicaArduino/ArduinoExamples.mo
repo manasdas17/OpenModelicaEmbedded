@@ -133,7 +133,7 @@ package ArduinoExamples
       extends Modelica.Icons.Example;
       OpenModelicaArduino.Boards.Arduino arduino1(Port = "/dev/ttyACM0") annotation(
         Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-      OpenModelicaArduino.Pins.AnalogInput analogInput1(MaxValue = 1023, MinValue = 0, Pin = 19) annotation(
+      OpenModelicaArduino.Pins.AnalogInput analogInput1(MaxValue = 1024, MinValue = 0, Pin = 23, adcResolution = 12) annotation(
         Placement(visible = true, transformation(origin = {-4.44089e-16, 4.44089e-16}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
         Placement(visible = true, transformation(origin = {-60, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -148,6 +148,8 @@ package ArduinoExamples
       annotation(
         uses(Modelica(version = "3.2.2")));
     end ex1_ldr_read;
+
+
 
 
     model ex2_ldr_led
@@ -380,7 +382,7 @@ package ArduinoExamples
         Placement(visible = true, transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       OpenModelicaArduino.Boards.Arduino arduino1(Port = "/dev/ttyACM0") annotation(
         Placement(visible = true, transformation(origin = {78, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-      OpenModelicaArduino.Pins.Servo servo1(InputUnit = OpenModelicaArduino.Internal.Types.ServoUnit.None, MaxPulse = 1000000, MinPulse = 500000, Pin = 9) annotation(
+      OpenModelicaArduino.Pins.Servo servo1(InputUnit = OpenModelicaArduino.Internal.Types.ServoUnit.None, MaxPulse = 1000000, MinPulse = 500000, Pin = 23) annotation(
         Placement(visible = true, transformation(origin = {20, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       Modelica.Blocks.Sources.Constant const(k = 0.1667) annotation(
         Placement(visible = true, transformation(origin = {-40, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -393,13 +395,14 @@ package ArduinoExamples
         uses(Modelica_DeviceDrivers(version = "1.5.0"), OpenModelicaArduino(version = "1.2"), Modelica(version = "3.2.2")));
     end ex1_servo_init;
 
+
     model ex2_servo_reverse
       extends Modelica.Icons.Example;
       Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
         Placement(visible = true, transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       OpenModelicaArduino.Boards.Arduino arduino1(Port = "/dev/ttyACM0") annotation(
         Placement(visible = true, transformation(origin = {78, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-      OpenModelicaArduino.Pins.Servo servo1(InputUnit = OpenModelicaArduino.Internal.Types.ServoUnit.None, MaxPulse = 1000000, MinPulse = 500000, Pin = 9) annotation(
+      OpenModelicaArduino.Pins.Servo servo1(InputUnit = OpenModelicaArduino.Internal.Types.ServoUnit.None, MaxPulse = 1000000, MinPulse = 500000, Pin = 3) annotation(
         Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       Modelica.Blocks.Sources.Pulse pulse2(amplitude = 0.5, offset = 0.5, period = 2, startTime = 6, width = 50) annotation(
         Placement(visible = true, transformation(origin = {-80, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -426,7 +429,7 @@ package ArduinoExamples
         Placement(visible = true, transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       OpenModelicaArduino.Boards.Arduino arduino1(Port = "/dev/ttyACM0") annotation(
         Placement(visible = true, transformation(origin = {78, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-      OpenModelicaArduino.Pins.Servo servo1(InputUnit = OpenModelicaArduino.Internal.Types.ServoUnit.None, MaxPulse = 1000000, MinPulse = 500000, Pin = 9) annotation(
+      OpenModelicaArduino.Pins.Servo servo1(InputUnit = OpenModelicaArduino.Internal.Types.ServoUnit.None, MaxPulse = 1000000, MinPulse = 500000, Pin = 23) annotation(
         Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       Modelica.Blocks.Sources.Ramp ramp1(duration = 10, height = 10, startTime = 5) annotation(
         Placement(visible = true, transformation(origin = {-90, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -454,6 +457,7 @@ package ArduinoExamples
       annotation(
         uses(Modelica_DeviceDrivers(version = "1.5.0"), OpenModelicaArduino(version = "1.2"), Modelica(version = "3.2.2")));
     end ex3_servo_loop;
+
 
     model ex4_servo_pot
       extends Modelica.Icons.Example;
