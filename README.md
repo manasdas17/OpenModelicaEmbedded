@@ -2,7 +2,6 @@
 OpenModelica for Embedded Applications
 
 ### Installation
----
 ## Energia
 	* Download the latest release of [Energia](http://energia.nu/download/).
 	* Follow the installation instructions provided by [Energia](http://energia.nu/download/).
@@ -11,9 +10,9 @@ OpenModelica for Embedded Applications
 
 
 ## Working with Arduino UNO [Atmega328p]
----
+
 ## Working with Tiva C [TM4C123G]
----
+
 ### Simulate a model with Tiva C
 	* In Energia, open the firmware for Tiva C provided in folder named `Firmware`.
 	* Select appropriate Board(Tiva C) and Port(USB port where Tiva C is connected) in `Tools` menu.
