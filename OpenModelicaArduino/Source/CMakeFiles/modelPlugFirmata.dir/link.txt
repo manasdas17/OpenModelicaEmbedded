@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libmodelPlugFirmata.so -o libmodelPlugFirmata.so CMakeFiles/modelPlugFirmata.dir/modelPlugFirmata.cpp.o CMakeFiles/modelPlugFirmata.dir/serial.cpp.o 
