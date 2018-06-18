@@ -16,7 +16,7 @@ OpenModelica for Embedded Applications
 ## Working with Arduino UNO [Atmega328p]
 
 ### Setting up firmware for Arduino board
-* In `Tools` Menu, select appropriate Board (Arduino/Genuino UNO) and Port as the available serial port to which Arduino is connected (most likely /dev/ttyACM0).
+* In `Tools` Menu, select appropriate Board (Arduino/Genuino UNO) and Port as the available serial port to which Arduino is connected.
 * Open **StandardFirmata** sketch: `File > Examples > Firmata > StandardFirmata`.
 * Upload the sketch to the board.
 ### Simulating the Modelica model
@@ -30,7 +30,7 @@ OpenModelica for Embedded Applications
 
 ### Simulate a model with Tiva C
 * In Energia, open the firmware for Tiva C provided in folder named `Firmware`.
-* Select appropriate Board(Tiva C) and Port(USB port where Tiva C is connected) in `Tools` menu.
+* Select appropriate Board (Tiva C) and Port (USB port where Tiva C is connected) in `Tools` menu.
 * Then, upload the firmware on board.
 * Now open OMEdit and Open the `package.mo` file from OpenModelicaEmbedded package
 * Open an example provided in the OpenModelicaEmbedded package which includes a Tiva C board.
