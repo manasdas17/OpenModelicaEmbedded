@@ -1,0 +1,3 @@
+/home/user/Downloads/libs/Source/CMakeFiles/rebuild_cache.dir
+/home/user/Downloads/libs/Source/CMakeFiles/edit_cache.dir
+/home/user/Downloads/libs/Source/CMakeFiles/modelPlugFirmata.dir
