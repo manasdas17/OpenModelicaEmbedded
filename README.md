@@ -1,16 +1,31 @@
 # OpenModelicaEmbedded
 OpenModelica for Embedded Applications
 
-### Installation
-## Energia
+## Installation
+
+### Arduino
+* Download and Install the latest version of arduino ide from the [Arduino](https://www.arduino.cc/en/Main/Software?) website.
+
+### Energia
 * Download the latest release of [Energia](http://energia.nu/download/).
 * Follow the installation instructions provided by [Energia](http://energia.nu/download/).
 * In Energia IDE, Select `Tools` and the `Board` and check if `Tiva C` board is present.
 * If not, then click on `Board Manager`, type Tiva C in search bar and then click on `Install` to install board.
-
+---
 
 ## Working with Arduino UNO [Atmega328p]
 
+### Setting up firmware for Arduino board
+* In `Tools` Menu, select appropriate Board (Arduino/Genuino UNO) and Port as the available serial port to which Arduino is connected (most likely /dev/ttyACM0).
+* Open **StandardFirmata** sketch: `File > Examples > Firmata > StandardFirmata`.
+* Upload the sketch to the board.
+### Simulating the Modelica model
+* Now open OMEdit window.
+* Open **package.mo** file OpenModelicaEmbedded folder.
+* In OpenModelicaEnbedded package, open **ArduinoExamples** package which consists of examples for arduino board.
+* Check and simulate the example models and verify the results.
+
+---
 ## Working with Tiva C [TM4C123G]
 
 ### Simulate a model with Tiva C
