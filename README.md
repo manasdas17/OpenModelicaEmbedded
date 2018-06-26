@@ -29,7 +29,7 @@ OpenModelica for Embedded Applications
 ## Working with Tiva C [TM4C123G]
 
 ### Simulate a model with Tiva C
-* In Energia, open the firmware for Tiva C provided in folder named `Firmware`.
+* In Energia, open the firmware for Tiva C provided in folder through path : `File > Open > OpenModelicaEmbedded > Firmware > Tiva C > StandardFirmata > StandardFirmata.ino` or add zip file of this StandardFirmata as an external library in Energia from the same folder.
 * Select appropriate Board (Tiva C) and Port (USB port where Tiva C is connected) in `Tools` menu.
 * Then, upload the firmware on board.
 * Now open OMEdit and Open the `package.mo` file from OpenModelicaEmbedded package
