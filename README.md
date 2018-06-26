@@ -17,12 +17,12 @@ OpenModelica for Embedded Applications
 
 ### Setting up firmware for Arduino board
 * In `Tools` Menu, select appropriate Board (Arduino/Genuino UNO) and Port as the available serial port to which Arduino is connected.
-* Open **StandardFirmata** sketch: `File > Examples > Firmata > StandardFirmata`.
+* Open **pidmata3** sketch: `File > Open > OpenModelicaEmbedded > Firmware > Arduino > pidmata3 > pidmata3.ino`.
 * Upload the sketch to the board.
 ### Simulating the Modelica model
 * Now open OMEdit window.
 * Open **package.mo** file OpenModelicaEmbedded folder.
-* In OpenModelicaEnbedded package, open **ArduinoExamples** package which consists of examples for arduino board.
+* In OpenModelicaEmbedded package, open **ArduinoExamples** package which consists of examples for arduino board.
 * Check and simulate the example models and verify the results.
 
 ---
