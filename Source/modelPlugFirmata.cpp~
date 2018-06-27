@@ -21,7 +21,6 @@
 #include <stdint.h>
 #include <algorithm>
 #include <vector>
-#include <cmath>
 
 #include "serial.h"
 #include "modelPlugFirmata.h"
@@ -82,7 +81,7 @@ public:
 	void writeDigitalPin(uint32_t pin,uint32_t value);
 	void writeAnalogPin(uint32_t pin, uint32_t value);
 	void writeServoPin(uint32_t pin, uint32_t value, int min, int max);
-	double readAnalogPin(uint32_t pin, double min, double max, double init, int adcResolution);
+	double readAnalogPin(uint32_t pin, double min, double max, double init);
 	uint32_t readDigitalPin(uint32_t pin, int init);
 	void setServoConfig(uint32_t pin,uint32_t min,uint32_t max);
 
@@ -250,7 +249,7 @@ double firmataBoard::readAnalogPin(uint32_t pin,double min, double max, double i
 		if(pin_info[pin].mode!=MODE_ANALOG)
 			setPinMode(pin,MODE_ANALOG);
 		if(pin_info[pin].ready)
-			return min+((pin_info[pin].value/(pow(2, adcResolution)-1))*(max-min));
+			return min+((pin_info[pin].value/pow(2, adcResolution)-1)*(max-min));
 		else
 			return init;
 	}

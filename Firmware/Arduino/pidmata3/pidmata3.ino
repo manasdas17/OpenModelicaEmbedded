@@ -28,11 +28,11 @@
 #include <Firmata.h>
 #include <AutoPID.h>
 
-//Comment the line below, "#define PID", if you are not using PID else uncomment it and follow further instructions.
+//Comment the macro defined below "#define PID" if you are not using PID, else uncomment it and follow further instructions.
 #define PID
 
 //------------PID values----------------
-// Pin 6  - setPoint  (input value)
+// Pin 6  - setPoint  (input value) 
 // Pin 5  - feedback (input value)
 // Pin 15 - control (output value)
 
@@ -40,14 +40,14 @@
 //If you use both real will be prefered
 //#define REAL_INPUT
 // This line define analog pin for read values from real sources
-#define AREAD_PIN A1
+#define AREAD_PIN A2
 
 
 #define PID_OUTPUT_MIN -512.0
 #define PID_OUTPUT_MAX 512.0
-#define PID_KP 15
-#define PID_KI 10
-#define PID_KD 10
+#define PID_KP 5
+#define PID_KI 3
+#define PID_KD 3
 #define PID_BANG_BANG 40
 #define PID_INTERVAL  100
 

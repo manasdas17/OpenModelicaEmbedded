@@ -264,6 +264,7 @@ equation
   annotation(Icon(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(fillColor = {0, 85, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-95, 90}, {95, -70}}, radius = 10), Text(origin = {0, 20}, lineColor = {255, 255, 255}, extent = {{-85, 40}, {85, -40}}, textString = "%BoardName"), Text(origin = {0, -80}, extent = {{-50, 20}, {50, -20}}, textString = "Port: %Port")}), Diagram(coordinateSystem( initialScale = 0.1, grid = {10, 10}), graphics = {Rectangle(fillColor = {0, 85, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-95, 80}, {95, -80}}, radius = 10), Text( lineColor = {255, 255, 255}, extent = {{-85, 35}, {85, -35}}, textString = "%BoardName")}));
 end customBoard;
 
+
     annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics = {Polygon(visible = true, origin = {12.096, 9.352}, fillColor = {0, 128, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-85.75100000000001, 70.648}, {-102.737, 66.761}, {-105.751, 50.648}, {-105.751, -69.352}, {-99.47499999999999, -85.465}, {-85.75100000000001, -89.352}, {74.249, -89.352}, {81.746, -83.29000000000001}, {86.32899999999999, -74.352}, {84.249, 34.141}, {82.185, 50.648}, {74.732, 67.486}, {52.373, 70.648}, {31.729, 70.648}}, smooth = Smooth.Bezier), Rectangle(visible = true, origin = {-69.67700000000001, 40}, fillColor = {106, 108, 116}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-32.24, -20}, {32.24, 20}}, radius = 10), Rectangle(visible = true, origin = {-77.83199999999999, -45.041}, fillPattern = FillPattern.Solid, extent = {{-25.915, -15.041}, {25.915, 15.041}}, radius = 10), Rectangle(visible = true, origin = {24.177, 70}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-54.177, -6.186}, {54.177, 6.186}}, radius = 10), Rectangle(visible = true, origin = {23.906, -63.814}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-64.17700000000001, -6.186}, {64.17700000000001, 6.186}}, radius = 10), Rectangle(visible = true, origin = {21.91, 0}, fillPattern = FillPattern.Solid, extent = {{-28.09, -25}, {28.09, 25}}, radius = 10), Rectangle(visible = true, origin = {78.083, -63.624}, fillColor = {250, 105, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {68.083, -63.624}, fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {58.083, -63.624}, fillColor = {250, 105, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {48.083, -63.624}, fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {38.083, -63.624}, fillColor = {250, 105, 0}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {28.083, -63.624}, fillColor = {243, 134, 48}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {70.00100000000001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {60.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {50.001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {40.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {30.001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {20.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {10.001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {0.001, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-9.999000000000001, 70}, fillColor = {167, 219, 216}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-19.999, 70}, fillColor = {105, 210, 231}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-31.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-21.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-11.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50), Rectangle(visible = true, origin = {-1.917, -63.624}, fillColor = {204, 208, 224}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Engraved, extent = {{-4.118, -3.624}, {4.118, 3.624}}, radius = 50)}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
   end Boards;
 
@@ -274,7 +275,7 @@ end customBoard;
 model BlinkLed "Basic example of blinking an LED"
   extends Modelica.Icons.Example;
   replaceable OpenModelicaEmbedded.Boards.Arduino arduino(Port = "/dev/ttyACM0", ShowPinCapabilities = true, UseDTR = false) annotation(Placement(visible = true, transformation(origin = {30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  OpenModelicaEmbedded.Pins.DigitalOutput digitalOutput(Pin = 30) annotation(Placement(visible = true, transformation(origin = {0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  OpenModelicaEmbedded.Pins.DigitalOutput digitalOutput(Pin = 9) annotation(Placement(visible = true, transformation(origin = {0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
     Placement(visible = true, transformation(origin = {35, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanPulse booleanPulse annotation(
@@ -380,7 +381,7 @@ end BlinkLed;
     model SimpleONOFF "A simple On/Off controller"
       extends Modelica.Icons.Example;
       OpenModelicaEmbedded.Boards.Arduino arduino(Port = "/dev/ttyACM0")  annotation(Placement(visible = true, transformation(origin = {0, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      OpenModelicaEmbedded.Pins.AnalogInput analogInput1(MaxValue = 3.3 * 100,Pin = 23, adcResolution = 12) annotation(Placement(visible = true, transformation(origin = {30, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      OpenModelicaEmbedded.Pins.AnalogInput analogInput1(MaxValue = 3.3 * 100,Pin = 16, adcResolution = 12) annotation(Placement(visible = true, transformation(origin = {30, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelica.Blocks.Sources.Constant Reference(k = 40) annotation(Placement(visible = true, transformation(origin = {35, -25}, extent = {{-10, -10}, {10, 10}}, rotation = -180)));
       Modelica.Blocks.Math.Add add1(k2 = +1, k1 = -1) annotation(Placement(visible = true, transformation(origin = {-0, -25}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
       Pins.DigitalOutput digitalOutput(Pin = 30) annotation(Placement(visible = true, transformation(origin = {-30, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -510,10 +511,12 @@ end BlinkLed;
         uses(OpenModelicaEmbedded(version = "1.2"), Modelica(version = "3.2.2"), Modelica_DeviceDrivers(version = "1.5.0")));
     end DCMotorWithPWM;
 
+
+
     model DCMotorWithPID
       extends Modelica.Icons.Example;
       Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1(priority = "High", setPriority = true) annotation(
-        Placement(visible = true, transformation(origin = {92, 88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+        Placement(visible = true, transformation(origin = {72, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelica.Mechanics.Rotational.Components.Inertia inertia1(J = 1, a(start = 0), phi(start = 0), w(start = 0)) annotation(
         Placement(visible = true, transformation(origin = {-22, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelica.Mechanics.Rotational.Components.Inertia inertia2(J = 1, a(start = 0), phi(start = 0), w(start = 0)) annotation(
@@ -534,11 +537,11 @@ end BlinkLed;
         Placement(visible = true, transformation(origin = {-64, 2}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
       OpenModelicaEmbedded.Pins.AnalogOutput analogOutput2(MaxValue = 512, MinValue = -512, Pin = 6) annotation(
         Placement(visible = true, transformation(origin = {-54, 58}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      Modelica.Blocks.Sources.Sine sine1(amplitude = 512, freqHz = 0.5) annotation(
-        Placement(visible = true, transformation(origin = {-122, 58}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Sine sine1(amplitude = 512, freqHz = 0.5)  annotation(
+        Placement(visible = true, transformation(origin = {-110, 58}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     equation
       connect(sine1.y, analogOutput2.u) annotation(
-        Line(points = {{-110, 58}, {-64, 58}, {-64, 58}, {-64, 58}}, color = {0, 0, 127}));
+        Line(points = {{-98, 58}, {-64, 58}, {-64, 58}, {-64, 58}}, color = {0, 0, 127}));
       connect(analogOutput2.pinConnector, customFirmata1.boardConnector) annotation(
         Line(points = {{-44, 58}, {-10, 58}, {-10, 4}}));
       connect(analogInput1.y, torque1.tau) annotation(
@@ -563,6 +566,58 @@ end BlinkLed;
         uses(OpenModelicaEmbedded(version = "1.2"), Modelica(version = "3.2.2"), Modelica_DeviceDrivers(version = "1.5.0")));
     end DCMotorWithPID;
 
+    model DCMotorWithPIDReal
+      extends Modelica.Icons.Example;
+      Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1(priority = "High", setPriority = true) annotation(
+        Placement(visible = true, transformation(origin = {92, 88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Components.Inertia inertia1(J = 1, a(start = 0), phi(start = 0), w(start = 0)) annotation(
+        Placement(visible = true, transformation(origin = {-22, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Components.Inertia inertia2(J = 1, a(start = 0), phi(start = 0), w(start = 0)) annotation(
+        Placement(visible = true, transformation(origin = {56, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Components.SpringDamper springDamper1(c = 20, d = 10, phi_rel0 = 0) annotation(
+        Placement(visible = true, transformation(origin = {16, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Sources.Torque torque1 annotation(
+        Placement(visible = true, transformation(origin = {-64, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Sources.ConstantTorque constantTorque1(tau_constant = 10) annotation(
+        Placement(visible = true, transformation(origin = {98, -86}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+      Modelica.Mechanics.Rotational.Sensors.SpeedSensor speedSensor1 annotation(
+        Placement(visible = true, transformation(origin = {88, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+      OpenModelicaEmbedded.Boards.CustomFirmata customFirmata1(BaudRate = 57600, Port = "/dev/ttyACM0", ShowPinCapabilities = true, UpdatePeriod = 0.02, UseDTR = true) annotation(
+        Placement(visible = true, transformation(origin = {-10, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      OpenModelicaEmbedded.Pins.AnalogOutput analogOutput1(MaxValue = 512, MinValue = -512, Pin = 5) annotation(
+        Placement(visible = true, transformation(origin = {46, 2}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+      OpenModelicaEmbedded.Pins.AnalogInput analogInput1(InitValue = 0, MaxValue = 512, MinValue = -512, Pin = 15) annotation(
+        Placement(visible = true, transformation(origin = {-64, 2}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  OpenModelicaEmbedded.Pins.AnalogInput analogInput2(MaxValue = 512, MinValue = -512, Pin = 16)  annotation(
+        Placement(visible = true, transformation(origin = {30, 50}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+  Modelica.Blocks.Interaction.Show.RealValue realValue1 annotation(
+        Placement(visible = true, transformation(origin = {85, 50}, extent = {{-13, -12}, {13, 12}}, rotation = 0)));
+    equation
+      connect(analogInput2.y, realValue1.numberPort) annotation(
+        Line(points = {{44, 50}, {70, 50}, {70, 50}, {70, 50}}, color = {0, 0, 127}));
+      connect(analogInput2.pinConnector, customFirmata1.boardConnector) annotation(
+        Line(points = {{16, 50}, {-10, 50}, {-10, 4}, {-10, 4}}));
+      connect(analogInput1.y, torque1.tau) annotation(
+        Line(points = {{-74, 2}, {-84, 2}, {-84, 2}, {-94, 2}, {-94, -86}, {-76, -86}}, color = {0, 0, 127}));
+      connect(analogInput1.pinConnector, customFirmata1.boardConnector) annotation(
+        Line(points = {{-54, 2}, {-10, 2}, {-10, 4}}));
+      connect(speedSensor1.w, analogOutput1.u) annotation(
+        Line(points = {{88, -25}, {89, -25}, {89, -23}, {88, -23}, {88, 3}, {56, 3}, {56, 1}}, color = {0, 0, 127}));
+      connect(analogOutput1.pinConnector, customFirmata1.boardConnector) annotation(
+        Line(points = {{36, 2}, {35.5, 2}, {35.5, 2}, {35, 2}, {35, 4}, {-10, 4}}));
+      connect(speedSensor1.flange, constantTorque1.flange) annotation(
+        Line(points = {{88, -46}, {88, -86}}));
+      connect(inertia2.flange_b, constantTorque1.flange) annotation(
+        Line(points = {{66, -86}, {88, -86}, {88, -86}, {88, -86}, {88, -86}, {88, -86}}));
+      connect(torque1.flange, inertia1.flange_a) annotation(
+        Line(points = {{-54, -86}, {-37, -86}, {-37, -86}, {-32, -86}, {-32, -86}, {-31, -86}, {-31, -86}, {-32, -86}}));
+      connect(springDamper1.flange_b, inertia2.flange_a) annotation(
+        Line(points = {{26, -86}, {36, -86}, {36, -86}, {46, -86}, {46, -86}, {46, -86}}));
+      connect(inertia1.flange_b, springDamper1.flange_a) annotation(
+        Line(points = {{-12, -86}, {-3, -86}, {-3, -86}, {6, -86}, {6, -86}, {6, -86}}));
+      annotation(
+        uses(OpenModelicaEmbedded(version = "1.2"), Modelica(version = "3.2.2"), Modelica_DeviceDrivers(version = "1.5.0")));
+    end DCMotorWithPIDReal;
   annotation(Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
   end Examples;
 
@@ -833,7 +888,7 @@ end arduino_ex4_led_blink;
 
 model arduino_ex1_pot_threshold
   extends Modelica.Icons.Example;
-  OpenModelicaEmbedded.Pins.AnalogInput analogInput1(MaxValue = 1023, MinValue = 0, Pin = 16, adcResolution = 12) annotation(
+  OpenModelicaEmbedded.Pins.AnalogInput analogInput1(MaxValue = 1023, MinValue = 0, Pin = 16, adcResolution = 10) annotation(
     Placement(visible = true, transformation(origin = {30, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   OpenModelicaEmbedded.Pins.DigitalOutput digitalOutput1(Pin = 9) annotation(
     Placement(visible = true, transformation(origin = {-50, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -887,6 +942,10 @@ equation
   annotation(
     uses(OpenModelicaEmbedded(version = "1.2")));
 end arduino_ex1_pot_threshold;
+
+
+
+
   end Potentiometer;
 
   package Thermistor
@@ -1597,6 +1656,7 @@ end ArduinoExamples;
 
 
 
+
       class FirmataBoardObject
         extends ExternalObject;
 
@@ -1792,6 +1852,6 @@ end ArduinoExamples;
 <p><a href=\"http://fritzing.org/\">http://fritzing.org</a></p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p></html>", revisions = ""), version = "1.2", Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics = {Rectangle(visible = true, fillColor = {190, 53, 19}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, radius = 25), Polygon(visible = true, origin = {-17.857, -4.643}, fillColor = {128, 128, 128}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{42.857, 59.643}, {42.857, 64.643}, {37.857, 69.643}, {32.857, 69.643}, {-17.143, 69.643}, {-42.143, 54.643}, {-57.143, 34.643}, {-65.22199999999999, 4.643}, {-57.143, -25.357}, {-42.143, -45.357}, {-17.143, -60.357}, {32.857, -60.357}, {37.857, -60.357}, {42.857, -55.357}, {42.857, -50.357}}, smooth = Smooth.Bezier), Polygon(visible = true, origin = {-17.857, -4.643}, fillColor = {255, 255, 255}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{42.857, 59.643}, {42.857, 64.643}, {37.857, 69.643}, {30.028, 54.643}, {-12.143, 59.643}, {-37.143, 44.643}, {-50.141, 26.339}, {-55.168, 4.643}, {-52.143, -20.357}, {-42.143, -42.453}, {-17.143, -60.357}, {32.857, -60.357}, {37.857, -60.357}, {42.857, -55.357}, {42.857, -50.357}}, smooth = Smooth.Bezier), Rectangle(visible = true, origin = {50, 27.5}, lineColor = {128, 128, 128}, fillColor = {255, 255, 255}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-25, -12.5}, {25, 12.5}}), Rectangle(visible = true, origin = {50, -27.5}, lineColor = {128, 128, 128}, fillColor = {255, 255, 255}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-25, -12.5}, {25, 12.5}}), Polygon(visible = true, origin = {-23.077, -0.385}, fillColor = {191, 191, 191}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{38.077, 50.385}, {38.077, 55.385}, {33.077, 55.385}, {-6.923, 55.385}, {-26.923, 45.385}, {-41.923, 30.385}, {-50.213, 0.385}, {-41.923, -29.615}, {-26.923, -44.615}, {-6.923, -54.615}, {33.077, -54.615}, {38.077, -54.615}, {38.077, -49.615}}, smooth = Smooth.Bezier), Polygon(visible = true, origin = {-17.857, -4.643}, lineColor = {128, 128, 128}, fillColor = {128, 128, 128}, points = {{42.857, 59.643}, {42.857, 64.643}, {37.857, 69.643}, {32.857, 69.643}, {-17.143, 69.643}, {-42.143, 54.643}, {-57.143, 34.643}, {-65.22199999999999, 4.643}, {-57.143, -25.357}, {-42.143, -45.357}, {-17.143, -60.357}, {32.857, -60.357}, {37.857, -60.357}, {42.857, -55.357}, {42.857, -50.357}}, smooth = Smooth.Bezier)}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})),
+<p>&nbsp;</p></html>", revisions = ""), version = "1.2", Icon(coordinateSystem( initialScale = 0.1, grid = {5, 5}), graphics = {Rectangle(fillColor = {0, 170, 255}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, radius = 25), Text(origin = {-47.5, 55}, extent = {{-42.5, 15}, {137.5, -80}}, textString = "OpenModelica", textStyle = {TextStyle.Bold}), Text(origin = {2.5, -15}, extent = {{-77.5, 15}, {77.5, -15}}, textString = "Embedded", textStyle = {TextStyle.Bold})}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})),
   uses(Modelica_DeviceDrivers(version = "1.5.0"), Modelica(version = "3.2.2")));
 end OpenModelicaEmbedded;
