@@ -381,10 +381,10 @@ end BlinkLed;
     model SimpleONOFF "A simple On/Off controller"
       extends Modelica.Icons.Example;
       OpenModelicaEmbedded.Boards.Arduino arduino(Port = "/dev/ttyACM0")  annotation(Placement(visible = true, transformation(origin = {0, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      OpenModelicaEmbedded.Pins.AnalogInput analogInput1(MaxValue = 3.3 * 100,Pin = 16, adcResolution = 12) annotation(Placement(visible = true, transformation(origin = {30, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      OpenModelicaEmbedded.Pins.AnalogInput analogInput1(MaxValue = 1023,Pin = 16, adcResolution = 10) annotation(Placement(visible = true, transformation(origin = {30, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelica.Blocks.Sources.Constant Reference(k = 40) annotation(Placement(visible = true, transformation(origin = {35, -25}, extent = {{-10, -10}, {10, 10}}, rotation = -180)));
       Modelica.Blocks.Math.Add add1(k2 = +1, k1 = -1) annotation(Placement(visible = true, transformation(origin = {-0, -25}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-      Pins.DigitalOutput digitalOutput(Pin = 30) annotation(Placement(visible = true, transformation(origin = {-30, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Pins.DigitalOutput digitalOutput(Pin = 9) annotation(Placement(visible = true, transformation(origin = {-30, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelica.Blocks.Logical.Hysteresis hysteresis(uLow = -1, uHigh = 1) annotation(Placement(visible = true, transformation(origin = {-30, -25}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
         Placement(visible = true, transformation(origin = {42.5, 42.5}, extent = {{-7.5, -7.5}, {7.5, 7.5}}, rotation = 0)));

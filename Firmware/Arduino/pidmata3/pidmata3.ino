@@ -29,7 +29,7 @@
 #include <AutoPID.h>
 
 //Comment the macro defined below "#define PID" if you are not using PID, else uncomment it and follow further instructions.
-#define PID
+//#define PID
 
 //------------PID values----------------
 // Pin 6  - setPoint  (input value) 
