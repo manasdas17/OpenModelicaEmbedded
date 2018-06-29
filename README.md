@@ -13,15 +13,15 @@ OpenModelica for Embedded Applications
 * If not, then click on `Board Manager`, type Tiva C in search bar and then click on `Install` to install board.
 * While using Energia on Windows Operating System, make sure you install necessary device drivers by following the instructions given [here](http://energia.nu/guide/guide_windows/).
 ---
-##How to make changes to source code?
+## How to make changes to source code?
 
-##Linux Operating System
+## Linux Operating System
 * Open the source codes by browsing to this location : `OpenModelicaEmbedded > Source`.
 * After making changes to these files open `Terminal`.
 * Browse to `OpenModelicaEmbedded > Source` folder using `cd` command.
 * Run command `make`.
 
-##Windows Operating System
+## Windows Operating System
 * Open the source codes by browsing to this location : `OpenModelicaEmbedded > Source`.
 * After making changes to these files open `Command Prompt (cmd)`.
 * Browse to `OpenModelicaEmbedded > Source` folder using `cd` command.
