@@ -11,7 +11,23 @@ OpenModelica for Embedded Applications
 * Follow the installation instructions provided by [Energia](http://energia.nu/download/).
 * In Energia IDE, Select `Tools` and the `Board` and check if `Tiva C` board is present.
 * If not, then click on `Board Manager`, type Tiva C in search bar and then click on `Install` to install board.
+* While using Energia on Windows Operating System, make sure you install necessary device drivers by following the instructions given [here](http://energia.nu/guide/guide_windows/).
 ---
+##How to make changes to source code?
+
+##Linux Operating System
+* Open the source codes by browsing to this location : `OpenModelicaEmbedded > Source`.
+* After making changes to these files open `Terminal`.
+* Browse to `OpenModelicaEmbedded > Source` folder using `cd` command.
+* Run command `make`.
+
+##Windows Operating System
+* Open the source codes by browsing to this location : `OpenModelicaEmbedded > Source`.
+* After making changes to these files open `Command Prompt (cmd)`.
+* Browse to `OpenModelicaEmbedded > Source` folder using `cd` command.
+* To compile the CPP files run the command: `g++ -c file1.cpp file2.cpp ...`.
+* To create a DLL from generated object files, run the command: `g++ -shared -o modelPlugFirmata.dll file1.o file2.o ...`.
+* Then copy the generated DLL file and paste it in folders: `OpenModelicaEmbedded` and `Resources > Library > win64`.
 
 ## Working with Arduino UNO [Atmega328p]
 
