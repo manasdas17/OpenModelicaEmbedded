@@ -25,8 +25,8 @@ OpenModelica for Embedded Applications
 * Open the source codes by browsing to this location : `OpenModelicaEmbedded > Source`.
 * After making changes to these files open `Command Prompt (cmd)`.
 * Browse to `OpenModelicaEmbedded > Source` folder using `cd` command.
-* To compile the CPP files run the command: `g++ -c file1.cpp file2.cpp ...`.
-* To create a DLL from generated object files, run the command: `g++ -shared -o modelPlugFirmata.dll file1.o file2.o ...`.
+* To compile the CPP files run the command: `g++ -c modelPlugFirmata.cpp serial.cpp`.
+* To create a DLL from generated object files, run the command: `g++ -shared -o modelPlugFirmata.dll modelPlugFirmata.o serial.o`.
 * Then copy the generated DLL file and paste it in folders: `OpenModelicaEmbedded` and `Resources > Library > win64`.
 
 ## Working with Arduino UNO [Atmega328p]
