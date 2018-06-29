@@ -274,7 +274,7 @@ end customBoard;
 
 model BlinkLed "Basic example of blinking an LED"
   extends Modelica.Icons.Example;
-  replaceable OpenModelicaEmbedded.Boards.Arduino arduino(Port = "/dev/ttyACM0", ShowPinCapabilities = true, UseDTR = false) annotation(Placement(visible = true, transformation(origin = {30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  replaceable OpenModelicaEmbedded.Boards.Arduino arduino(Port = "COM4", ShowPinCapabilities = true, UseDTR = false) annotation(Placement(visible = true, transformation(origin = {30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   OpenModelicaEmbedded.Pins.DigitalOutput digitalOutput(Pin = 9) annotation(Placement(visible = true, transformation(origin = {0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
     Placement(visible = true, transformation(origin = {35, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -1159,11 +1159,11 @@ end ArduinoExamples;
           Placement(visible = true, transformation(origin = {-3.55271e-15, 3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
         OpenModelicaEmbedded.Pins.DigitalOutput digitalOutput2(Pin = 30) annotation(
           Placement(visible = true, transformation(origin = {-3.55271e-15, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-        Modelica.Blocks.Sources.BooleanPulse booleanPulse1(period = 20, startTime = 5, width = 25) annotation(
+        Modelica.Blocks.Sources.BooleanPulse booleanPulse1(period = 2, startTime = 0, width = 50) annotation(
           Placement(visible = true, transformation(origin = {-60, 3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-        Modelica.Blocks.Sources.BooleanPulse booleanPulse2(period = 20, startTime = 5, width = 40) annotation(
+        Modelica.Blocks.Sources.BooleanPulse booleanPulse2(period = 2, startTime = 1, width = 50) annotation(
           Placement(visible = true, transformation(origin = {-60, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-        OpenModelicaEmbedded.Boards.customBoard customBoard1(BoardName = "Tiva C", Port = "/dev/ttyACM0") annotation(
+        OpenModelicaEmbedded.Boards.customBoard customBoard1(BoardName = "Tiva C", Port = "COM6") annotation(
           Placement(visible = true, transformation(origin = {60, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       equation
         connect(digitalOutput1.pinConnector, customBoard1.boardConnector) annotation(
@@ -1644,7 +1644,7 @@ end ArduinoExamples;
         input Integer adcResolution;
         output Real value;
       
-        external "C" value = readAnalogPin(pin, min, max, init, board, adcResolution) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include", LibraryDirectory = "modelica://OpenModelicaEmbedded/Resources/Library");
+        external "C" value = readAnalogPin(pin, min, max, init, board, adcResolution) annotation(Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include");
       end readAnalogPin;
 
 
@@ -1668,13 +1668,13 @@ end ArduinoExamples;
           input Boolean UseDTR;
           output FirmataBoardObject board;
         
-          external "C" board = boardConstructor(port, showCapabilities, samplingMs, BaudRate, UseDTR) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include", LibraryDirectory = "modelica://OpenModelicaEmbedded/Resources/Library");
+          external "C" board = boardConstructor(port, showCapabilities, samplingMs, BaudRate, UseDTR) annotation(Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include");
         end constructor;
 
         function destructor "Function to destroy the object"
           input FirmataBoardObject board;
         
-          external "C" boardDestructor(board) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include", LibraryDirectory = "modelica://OpenModelicaEmbedded/Resources/Library");
+          external "C" boardDestructor(board) annotation(Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include");
         end destructor;
       end FirmataBoardObject;
 
@@ -1682,7 +1682,7 @@ end ArduinoExamples;
         input FirmataBoardObject board;
         output Integer id;
       
-        external "C" id = getBoardId(board) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include", LibraryDirectory = "modelica://OpenModelicaEmbedded/Resources/Library");
+        external "C" id = getBoardId(board) annotation(Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include");
       end getBoardId;
 
       function readDigitalPin
@@ -1691,7 +1691,7 @@ end ArduinoExamples;
         input Integer board;
         output Boolean value;
       
-        external "C" value = readDigitalPin(pin, init, board) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include", LibraryDirectory = "modelica://OpenModelicaEmbedded/Resources/Library");
+        external "C" value = readDigitalPin(pin, init, board) annotation(Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include");
       end readDigitalPin;
 
       function writeAnalogPin
@@ -1699,7 +1699,7 @@ end ArduinoExamples;
         input Integer board;
         input Real value;
       
-        external "C" writeAnalogPin(pin, board, value) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include", LibraryDirectory = "modelica://OpenModelicaEmbedded/Resources/Library");
+        external "C" writeAnalogPin(pin, board, value) annotation(Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include");
       end writeAnalogPin;
 
       function writeDigitalPin
@@ -1707,13 +1707,13 @@ end ArduinoExamples;
         input Integer board;
         input Boolean value;
       
-        external "C" writeDigitalPin(pin, board, value) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include", LibraryDirectory = "modelica://OpenModelicaEmbedded/Resources/Library");
+        external "C" writeDigitalPin(pin, board, value) annotation(Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include");
       end writeDigitalPin;
 
       function updateBoard
         input Integer board;
       
-        external "C" updateBoard(board) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include", LibraryDirectory = "modelica://OpenModelicaEmbedded/Resources/Library");
+        external "C" updateBoard(board) annotation(Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include");
       end updateBoard;
 
       function writeServoPin
@@ -1723,11 +1723,12 @@ end ArduinoExamples;
         input Integer MinPulse;
         input Integer MaxPulse;
       
-        external "C" writeServoPin(pin, board, value, MinPulse, MaxPulse) annotation(Include = "#include \"modelPlugFirmata.h\"", Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include", LibraryDirectory = "modelica://OpenModelicaEmbedded/Resources/Library");
+        external "C" writeServoPin(pin, board, value, MinPulse, MaxPulse) annotation(Library = "modelPlugFirmata", IncludeDirectory = "modelica://OpenModelicaEmbedded/Resources/Include");
       end writeServoPin;
 
       annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics = {Text(visible = true, origin = {11.425, 9.596}, extent = {{-101.424, -59.596}, {78.57599999999999, 40.404}}, textString = "EF")}), Documentation(info = "", revisions = ""), Diagram(coordinateSystem(extent = {{-148.5, 105}, {148.5, -105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10})), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(visible = true, fillColor = {209, 209, 209}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {75, 75}}), Polygon(visible = true, fillColor = {236, 236, 236}, fillPattern = FillPattern.Solid, points = {{-100, 75}, {-75, 100}, {100, 100}, {75, 75}}), Polygon(visible = true, fillColor = {177, 177, 177}, fillPattern = FillPattern.Solid, points = {{75, -100}, {75, 75}, {100, 100}, {100, -75}}), Text(visible = true, extent = {{-95.95, -91.88}, {63.97, 71.52}}, textString = "C")}));
     end ExternalFunctions;
+
 
     package Types "Type and unit definitions"
       extends Modelica.Icons.TypesPackage;

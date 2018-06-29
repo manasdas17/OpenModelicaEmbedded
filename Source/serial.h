@@ -7,7 +7,7 @@
 #include <termios.h>
 #elif defined(MACOSX)
 #include <termios.h>
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 #include <windows.h>
 #endif
 
@@ -47,7 +47,7 @@ private:
 	int port_fd;
 	struct termios settings_orig;
 	struct termios settings;
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 	HANDLE port_handle;
 	COMMCONFIG port_cfg_orig;
 	COMMCONFIG port_cfg;

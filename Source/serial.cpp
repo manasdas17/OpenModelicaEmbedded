@@ -52,7 +52,7 @@
   #include <IOKit/IOKitLib.h>
   #include <IOKit/serial/IOSerialKeys.h>
   #include <IOKit/IOBSD.h>
-#elif defined(WINDOWS)
+#elif defined(WIN32)
   #include <windows.h>
   #define win32_err(s) FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, \
 			GetLastError(), 0, (s), sizeof(s), NULL)
@@ -166,7 +166,7 @@ int Serial::Open(const string& name)
 	settings.c_iflag = IGNBRK | IGNPAR;
 	Set_baud(baud_rate);
 	tcflush(port_fd, TCIFLUSH);
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 	COMMCONFIG cfg;
 	COMMTIMEOUTS timeouts;
 	int got_default_cfg=0, port_num;
@@ -292,7 +292,7 @@ void Serial::Close(void)
 #if defined(LINUX) || defined(MACOSX)
 	tcsetattr(port_fd, TCSANOW, &settings_orig);
 	close(port_fd);
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 	//SetCommConfig(port_handle, &port_cfg_orig, sizeof(COMMCONFIG));
 	CloseHandle(port_handle);
 #endif
@@ -390,7 +390,7 @@ int Serial::Set_baud(int baud)
 	cfsetospeed(&settings, (speed_t)baud);
 	cfsetispeed(&settings, (speed_t)baud);
 	if (tcsetattr(port_fd, TCSANOW, &settings) < 0) return -1;
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 	DWORD len = sizeof(COMMCONFIG);
 	port_cfg.dcb.BaudRate = baud;
 	SetCommConfig(port_handle, &port_cfg, len);
@@ -425,7 +425,7 @@ int Serial::Read(void *ptr, int count)
 	n = read(port_fd, ptr, count);
 	if (n < 0 && (errno == EAGAIN || errno == EINTR)) return 0;
 	return n;
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 	// first, we'll find out how many bytes have been received
 	// and are currently waiting for us in the receive buffer.
 	//   http://msdn.microsoft.com/en-us/library/ms885167.aspx
@@ -504,7 +504,7 @@ int Serial::Write(const void *ptr, int len)
 		}
 	}
 	return written;
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 	DWORD num_written;
 	OVERLAPPED ov;
 	int r;
@@ -548,7 +548,7 @@ int Serial::Input_wait(int msec)
 	FD_ZERO(&rfds);
 	FD_SET(port_fd, &rfds);
 	return select(port_fd+1, &rfds, NULL, NULL, &tv);
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 	// http://msdn2.microsoft.com/en-us/library/aa363479(VS.85).aspx
 	// http://msdn2.microsoft.com/en-us/library/aa363424(VS.85).aspx
 	// http://source.winehq.org/WineAPI/WaitCommEvent.html
@@ -602,7 +602,7 @@ void Serial::Input_discard(void)
 #if defined(LINUX) || defined(MACOSX)
 	// does this really work properly (and is it thread safe) on Linux??
 	tcflush(port_fd, TCIFLUSH);
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 	PurgeComm(port_handle, PURGE_RXCLEAR);
 #endif
 }
@@ -613,7 +613,7 @@ void Serial::Output_flush(void)
 	if (!port_is_open) return;
 #if defined(LINUX) || defined(MACOSX)
 	tcdrain(port_fd);
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 	FlushFileBuffers(port_handle);
 #endif
 }
@@ -639,7 +639,7 @@ int Serial::Set_control(int dtr, int rts)
 		bits &= ~TIOCM_RTS;
 	}
 	if (ioctl(port_fd, TIOCMSET, &bits) < 0) return -1;;
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 	// http://msdn.microsoft.com/en-us/library/aa363254(VS.85).aspx
 	if (dtr == 1) {
 		if (!EscapeCommFunction(port_handle, SETDTR)) return -1;
@@ -848,7 +848,7 @@ vector<string> Serial::port_list()
 	   &serialPortIterator) != KERN_SUCCESS) return list;
 	macos_ports(&serialPortIterator, list);
 	IOObjectRelease(serialPortIterator);
-#elif defined(WINDOWS)
+#elif defined(WIN32)
 	// http://msdn.microsoft.com/en-us/library/aa365461(VS.85).aspx
 	// page with 7 ways - not all of them work!
 	// http://www.naughter.com/enumser.html
