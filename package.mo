@@ -1,69 +1,85 @@
 package OpenModelicaEmbedded "Connecting OpenModelica with Arduino"
 
-  package GettingStarted "Procedure to run first model using OpenModelicaEmbedded"
-    extends Modelica.Icons.Information;
-    annotation(preferredView = "info", Documentation(info = "<html> <p> .</p>
-      <h4>Preparing Your Board</h4>
-      <p> .</p>
-      <p>The first thing you need to do is upload the Firmware code to your board .</p>
-      <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/FirmataLocation.png\" alt=\"\" /></p>
-      <p><em>Figure 1. Location of the Firmware sketch.</em></p>
-      <p>If you wish to use PID(Proportional-integral-derivative) then use another firmware provided with the package. To open an firmware through Arduino IDE click on &ldquo;Open&ldquo; and Browse to the location where you extracted the package. Insdie the package folder look for folder named &ldquo;Firmware&ldquo; which contains a file named &ldquo;pidmata3.ino&ldquo;. Select that file and click open to load firmware in Arduino IDE.<br>
-      Important instructions for using above mentioned firmware &ldquo;pidmata3.ino&ldquo;:
-      <ul>
-      <li>To use PID uncomment the macro &ldquo;#define PID&ldquo; in firmware and follow further instructions in firmware.</li>
-      <li>If you are not using PID then comment the above mentioned macro.</li>
-      </ul>
-      </p>
-      <p>Once the the Firmware code is in the board, you&nbsp;need to write down the serial port that it is using. This is important because you&nbsp;need to give the port name to OpenModelicaEmbedded in order to communicate with the board. You can find the serial port in Tools-&gt;Serial Port or in the bottom-right corner of the Arduino software window (see Figure 2). In Windows the serial port name is something like &ldquo;COM5&rdquo;, while in OS X and Linux the name will be something like &ldquo;/dev/ttyACM0&rdquo;. Now you&nbsp;are ready to make your&nbsp;first model.</p>
-      <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/SerialPortLocation.png\" alt=\"\" /></p>
-      <p><em>Figure 2. Finding the serial port being used.</em>&nbsp;</p>
-      <h4>Blinking LED</h4>
-      <p>As a first exercise, you&nbsp;are going to reproduce with OpenModelicaEmbedded the blinking LED example. You can either open the prebuilt example (OpenModelicaEmbedded.Examples.BlinkLed) or build it by yourself. To build the model, locate the components:</p>
-      <ul>
-      <li>OpenModelicaEmbedded.Pins.DigitalOutput</li>
-      <li>OpenModelicaEmbedded.Boards.Arduino</li>
-      <li>Modelica.Blocks.Sources.BooleanPulse</li>
-      </ul>
-      <p>Connect the components as in Figure 3.&nbsp;One thing to notice is that the DigitalOutput model is connected to the Arduino component to specify that the pin belongs to that board. This connection is necessary because OpenModelicaEmbedded can use multiple boards with multiple pins at the same time.</p>
-      <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/BlinkingLEDModel.png\" alt=\"\" /></p>
-      <p><em>Figure 3. Diagram of the blinking LED.</em></p>
-      <p>Next you&nbsp;need to specify the serial port that the board is using. This is done by selecting the Arduino component and showing its parameters. In the parameter view, you&nbsp;can find the Port parameter. Write the port name that you got in the section &ldquo;Preparing your board&rdquo;. Important: the name must be have quotation marks&nbsp;as shown in Figure 4.</p>
-      <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/QuotedSerialPort.png\" alt=\"\" /></p>
-      <p><em>Figure 4. Specifying the serial port name.&nbsp;</em></p>
-      <p>Now you&nbsp;need to set the pin number that you&nbsp;are going to use in the DigitalOutput component. Usually, the Arduino boards have an LED attached to pin 13. Set that number in the Pin parameter as shown in Figure 5.</p>
-      <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/PinNumber.png\" alt=\"\" /></p>
-      <p><em>Figure 5. Specifying the pin to use.</em></p>
-      <p>For the BooleanPulse component, set the 'period' parameter to 1. The model is ready to simulate. Press the simulate button and wait to see the results.</p>
-      <p>The first time you run the model, it is probably simulated so fast that you do not have&nbsp;time to react. The reason is that OpenModelica simulates the model as fast as possible. In order to interact with your models using OpenModelicaEmbedded, it is necessary to synchronize the simulation time with real time. This is done in by using Synchronisation block in ModelicaDeviceDriver library. After simulating the model one time, you need to check in the checkbox&nbsp;&ldquo;Synchronize with real-time&rdquo; as shown in Figure 6.</p>
-      //<p>&nbsp;<img src=\"modelica://OpenModelicaEmbedded/Resources/Images/SynchronizeSetting.png\" alt=\"\" /></p>
-      //<p><em>Figure 6. Synchronizing your simulation with real time.</em>&nbsp;</p>
-      //<p>If you are building many models with the OpenModelicaEmbedded library, you should set the &ldquo;Synchronize with real-time&rdquo; option as a default simulation setting in SimulationCenter under the menu Tools-&gt;Options in the section SimulationCenter-&gt;Default Experiment (see Figure 7).&nbsp;</p>
-      //<p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/DefaultSynchronize.png\" alt=\"\" />&nbsp;</p>
-      //<p><em>Figure 7. Setting \"Synchronize with real-time\" as default.</em></p>
-      //<p>Now run the simulation again and you should see the LED blinking until the simulation reaches the stop time. If you want to keep the simulation running continuously, you need to change the stop time to &ldquo;infinite&rdquo; as shown in Figure 8.</p>
-      //<p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/StopTime.png\" alt=\"\" /></p>
-      //<p><em>Figure 8. &nbsp;Setting the stop time to infinite.</em></p>
-      //<p>If you run the simulation again, you should see the LED blinking continuously.</p>
-      <p>One thing that you may have noticed is that OpenModelicaEmbedded prints status messages in the simulation log (see Figure 9). The first thing it prints is a list of the available ports. In that list, you should see your current port (A). After that, it prints the current port and the speed used (B). Once the port is opened, you&nbsp;receive a notification that the board is initialized (C). Usually the boards report the version of Firmata that you are running. Then you&nbsp;set the sampling interval that the board uses (D). In this example, you can see that you are setting pin 13 to be an output because you&nbsp;have used the DigitalOutput component (E). Finally you&nbsp;will see that the board will send you&nbsp;a list of all the pins available and thier capabilities (F). This list contains the number of the pin and the modes in which it can be used, for example: DigitalInput, DigitalOutput, AnalogInput, AnalogOutput, and Servo.</p>
-      <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/ModelPlugLog-nomarkers.png\" alt=\"\" /></p>
-      <p><em>Figure 9. Messages shown by OpenModelicaEmbedded.</em></p>
-      <h4>Troubleshooting</h4>
-      <p>This is a checklist that you can follow in order to solve most of the problems that can occur when using the ModelPlug library:</p>
-      <ol>
-      <li>Verify that you can upload any Arduino example to your board.</li>
-      <li>Verify that you have uploaded a StandardFirmata example to your board.</li>
-      <li>Verify that the port name in the board component matches the port where you have your board connected.</li>
-      <li>Verify that the port name has quotation marks.</li>
-      <li>ModelPlug will not connect to the board if there is another application using the port. Verify you do not have other applications using the port.</li>
-      <li>If the simulation log does not show the board capabilities, try uploading the Firmata to your board again.</li>
-      <li>When using multiple boards, your operating system may have changed the port names. Verify that the port&nbsp;names in the components correspond to each hardware board.</li>
-      <li>Some boards like the Arduino Leonardo and compatible require the parameter UseDTR set to true. Change the parameter and test your board.</li>
-      </ol>
-      <p>If you are still having problems, you can go to&nbsp;<a href=\"http://community.wolfram.com/\">http://community.wolfram.com</a>&nbsp;and ask a question.</p>
-      <h4>What Next?</h4>
-      <p>OpenModelicaEmbedded contains a series of basic examples showing the functionality of the components. You can check the Examples under ModelPlug.Examples. Once you have learned how to use the basic components of OpenModelicaEmbedded, you can check the Arduino Playground to learn how to connect other sensors and actuators (<a href=\"http://playground.arduino.cc/\">http://playground.arduino.cc</a>).</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
-  end GettingStarted;
+package GettingStarted "Procedure to run first model using OpenModelicaEmbedded"
+  extends Modelica.Icons.Information;
+  annotation(preferredView = "info", Documentation(info = "<html> <p> .</p>
+    <h4>Preparing Your Board</h4>
+    <p> .</p>
+    <p>The first thing you need to do is upload the Firmware code to your board .</p>
+    <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/FirmataLocation.png\" alt=\"\" /></p>
+    <p><em>Figure 1. Location of the Firmware sketch.</em></p>
+    <p>If you wish to use PID(Proportional-integral-derivative) then use another firmware provided with the package. To open an firmware through Arduino IDE click on &ldquo;Open&ldquo; and Browse to the location where you extracted the package. Insdie the package folder look for folder named &ldquo;Firmware&ldquo; which contains a file named &ldquo;pidmata3.ino&ldquo;. Select that file and click open to load firmware in Arduino IDE.<br>
+    Important instructions for using above mentioned firmware &ldquo;pidmata3.ino&ldquo;:
+    <ul>
+    <li>To use PID uncomment the macro &ldquo;#define PID&ldquo; in firmware and follow further instructions in firmware.</li>
+    <li>If you are not using PID then comment the above mentioned macro.</li>
+    </ul>
+    </p>
+    <p>Once the the Firmware code is in the board, you&nbsp;need to write down the serial port that it is using. This is important because you&nbsp;need to give the port name to OpenModelicaEmbedded in order to communicate with the board. You can find the serial port in Tools-&gt;Serial Port or in the bottom-right corner of the Arduino software window (see Figure 2). In Windows the serial port name is something like &ldquo;COM5&rdquo;, while in OS X and Linux the name will be something like &ldquo;/dev/ttyACM0&rdquo;. Now you&nbsp;are ready to make your&nbsp;first model.</p>
+    <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/SerialPortLocation.png\" alt=\"\" /></p>
+    <p><em>Figure 2. Finding the serial port being used.</em>&nbsp;</p>
+    <h4>Blinking LED</h4>
+    <p>As a first exercise, you&nbsp;are going to reproduce with OpenModelicaEmbedded the blinking LED example. You can either open the prebuilt example (OpenModelicaEmbedded.Examples.BlinkLed) or build it by yourself. To build the model, locate the components:</p>
+    <ul>
+    <li>OpenModelicaEmbedded.Pins.DigitalOutput</li>
+    <li>OpenModelicaEmbedded.Boards.Arduino</li>
+    <li>Modelica.Blocks.Sources.BooleanPulse</li>
+    </ul>
+    <p>Connect the components as in Figure 3.&nbsp;One thing to notice is that the DigitalOutput model is connected to the Arduino component to specify that the pin belongs to that board. This connection is necessary because OpenModelicaEmbedded can use multiple boards with multiple pins at the same time.</p>
+    <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/BlinkLed.png\" alt=\"\" /></p>
+    <p><em>Figure 3. Diagram of the blinking LED.</em></p>
+    <p>Next you&nbsp;need to specify the serial port that the board is using. This is done by selecting the Arduino component and showing its parameters. In the parameter view, you&nbsp;can find the Port parameter. Write the port name that you got in the section &ldquo;Preparing your board&rdquo;. Important: the name must be have quotation marks&nbsp;as shown in Figure 4.</p>
+    <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/QuotedSerialPort.png\" alt=\"\" /></p>
+    <p><em>Figure 4. Specifying the serial port name.&nbsp;</em></p>
+    <p>Now you&nbsp;need to set the pin number that you&nbsp;are going to use in the DigitalOutput component. Usually, the Arduino boards have an LED attached to pin 13. Set that number in the Pin parameter as shown in Figure 5.</p>
+    <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/PinNumber.png\" alt=\"\" /></p>
+    <p><em>Figure 5. Specifying the pin to use.</em></p>
+    <p>For the BooleanPulse component, set the 'period' parameter to 1. The model is ready to simulate. Press the simulate button and wait to see the results.</p>
+    <p>The first time you run the model, it is probably simulated so fast that you do not have&nbsp;time to react. The reason is that OpenModelica simulates the model as fast as possible. In order to interact with your models using OpenModelicaEmbedded, it is necessary to synchronize the simulation time with real time. This is done in by using Synchronisation block in ModelicaDeviceDriver library. After simulating the model one time, you need to check in the checkbox&nbsp;&ldquo;Synchronize with real-time&rdquo; as shown in Figure 6.</p>
+    //<p>&nbsp;<img src=\"modelica://OpenModelicaEmbedded/Resources/Images/SynchronizeSetting.png\" alt=\"\" /></p>
+    //<p><em>Figure 6. Synchronizing your simulation with real time.</em>&nbsp;</p>
+    //<p>If you are building many models with the OpenModelicaEmbedded library, you should set the &ldquo;Synchronize with real-time&rdquo; option as a default simulation setting in SimulationCenter under the menu Tools-&gt;Options in the section SimulationCenter-&gt;Default Experiment (see Figure 7).&nbsp;</p>
+    //<p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/DefaultSynchronize.png\" alt=\"\" />&nbsp;</p>
+    //<p><em>Figure 7. Setting \"Synchronize with real-time\" as default.</em></p>
+    //<p>Now run the simulation again and you should see the LED blinking until the simulation reaches the stop time. If you want to keep the simulation running continuously, you need to change the stop time to &ldquo;infinite&rdquo; as shown in Figure 8.</p>
+    //<p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/StopTime.png\" alt=\"\" /></p>
+    //<p><em>Figure 8. &nbsp;Setting the stop time to infinite.</em></p>
+    //<p>If you run the simulation again, you should see the LED blinking continuously.</p>
+    <p>One thing that you may have noticed is that OpenModelicaEmbedded prints status messages in the simulation log (see Figure 9). The first thing it prints is a list of the available ports. In that list, you should see your current port (A). After that, it prints the current port and the speed used (B). Once the port is opened, you&nbsp;receive a notification that the board is initialized (C). Usually the boards report the version of Firmata that you are running. Then you&nbsp;set the sampling interval that the board uses (D). In this example, you can see that you are setting pin 13 to be an output because you&nbsp;have used the DigitalOutput component (E). Finally you&nbsp;will see that the board will send you&nbsp;a list of all the pins available and thier capabilities (F). This list contains the number of the pin and the modes in which it can be used, for example: DigitalInput, DigitalOutput, AnalogInput, AnalogOutput, and Servo.</p>
+    <p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/ModelPlugLog-nomarkers.png\" alt=\"\" /></p>
+    <p><em>Figure 9. Messages shown by OpenModelicaEmbedded.</em></p>
+    <h4>Troubleshooting</h4>
+    <p>This is a checklist that you can follow in order to solve most of the problems that can occur when using the OpenModelicaEmbedded library:</p>
+    <ol>
+    <li>Verify that you can upload any Arduino example to your board.</li>
+    <li>Verify that you have uploaded a StandardFirmata example to your board.</li>
+    <li>Verify that the port name in the board component matches the port where you have your board connected.</li>
+    <li>Verify that the port name has quotation marks.</li>
+    <li>OpenModelica will not connect to the board if there is another application using the port. Verify you do not have other applications using the port.</li>
+    <li>If the simulation does not start then try uploading the Firmata to your board again.</li>
+    <li>When using multiple boards, your operating system may have changed the port names. Verify that the port&nbsp;names in the components correspond to each hardware board.</li>
+    <li>Some boards like the Arduino Leonardo and compatible require the parameter UseDTR set to true. Change the parameter and test your board.</li>
+    </ol>
+    <p>If you are still having problems, you can go to&nbsp;<a href=\"https://github.com/manasdas17/OpenModelicaEmbedded\">https://github.com/manasdas17/OpenModelicaEmbedded</a>&nbsp;and ask a question.</p>
+    <h4>What Next?</h4>
+    <p>OpenModelicaEmbedded contains a series of basic examples showing the functionality of the components. You can check the Examples under OpenModelicaEmbedded.Examples. Once you have learned how to use the basic components of OpenModelicaEmbedded, you can check the Arduino Playground to learn how to connect other sensors and actuators (<a href=\"http://playground.arduino.cc/\">http://playground.arduino.cc</a>).</p></html>", revisions = ""), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
+end GettingStarted;
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   package Pins "Components to access the board I/O"
@@ -274,7 +290,7 @@ end customBoard;
 
 model BlinkLed "Basic example of blinking an LED"
   extends Modelica.Icons.Example;
-  replaceable OpenModelicaEmbedded.Boards.Arduino arduino(Port = "COM4", ShowPinCapabilities = true, UseDTR = false) annotation(Placement(visible = true, transformation(origin = {30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  replaceable OpenModelicaEmbedded.Boards.Arduino arduino(Port = "/dev/ttyACM0", ShowPinCapabilities = true, UseDTR = false) annotation(Placement(visible = true, transformation(origin = {30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   OpenModelicaEmbedded.Pins.DigitalOutput digitalOutput(Pin = 9) annotation(Placement(visible = true, transformation(origin = {0, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
     Placement(visible = true, transformation(origin = {35, 15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -716,18 +732,18 @@ end arduino_ex4_led_blink;
     model arduino_ex1_push_button_status
       extends Modelica.Icons.Example;
       Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1 annotation(
-        Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+        Placement(visible = true, transformation(origin = {-60, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       OpenModelicaEmbedded.Boards.Arduino arduino1(Port = "/dev/ttyACM0") annotation(
         Placement(visible = true, transformation(origin = {-60, 3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       OpenModelicaEmbedded.Pins.DigitalInput digitalInput1(Pin = 12) annotation(
-        Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+        Placement(visible = true, transformation(origin = {10, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       Modelica.Blocks.Interaction.Show.BooleanValue booleanValue1 annotation(
         Placement(visible = true, transformation(origin = {80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
     equation
-      connect(digitalInput1.y, booleanValue1.activePort) annotation(
-        Line(points = {{20, 0}, {54, 0}, {54, 0}, {58, 0}}, color = {255, 0, 255}));
-      connect(arduino1.boardConnector, digitalInput1.pinConnector) annotation(
-        Line(points = {{-60, 0}, {-20, 0}}));
+    connect(arduino1.boardConnector, digitalInput1.pinConnector) annotation(
+          Line(points = {{-60, 0}, {-10, 0}}));
+    connect(digitalInput1.y, booleanValue1.activePort) annotation(
+          Line(points = {{30, 0}, {58, 0}}, color = {255, 0, 255}));
       Modelica.Utilities.Streams.print(String(booleanValue1.activePort));
     end arduino_ex1_push_button_status;
 
@@ -1744,115 +1760,6 @@ end ArduinoExamples;
     end Interfaces;
     annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics = {Polygon(visible = true, origin = {1.383, -4.142}, rotation = 45, fillColor = {64, 64, 64}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-15, 93.333}, {-15, 68.333}, {0, 58.333}, {15, 68.333}, {15, 93.333}, {20, 93.333}, {25, 83.333}, {25, 58.333}, {10, 43.333}, {10, -41.667}, {25, -56.667}, {25, -76.667}, {10, -91.667}, {0, -91.667}, {0, -81.667}, {5, -81.667}, {15, -71.667}, {15, -61.667}, {5, -51.667}, {-5, -51.667}, {-15, -61.667}, {-15, -71.667}, {-5, -81.667}, {0, -81.667}, {0, -91.667}, {-10, -91.667}, {-25, -76.667}, {-25, -56.667}, {-10, -41.667}, {-10, 43.333}, {-25, 58.333}, {-25, 83.333}, {-20, 93.333}}), Polygon(visible = true, origin = {10.102, 5.218}, rotation = -45, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, points = {{-15, 87.273}, {15, 87.273}, {20, 82.273}, {20, 27.273}, {10, 17.273}, {10, 7.273}, {20, 2.273}, {20, -2.727}, {5, -2.727}, {5, -77.727}, {10, -87.727}, {5, -112.727}, {-5, -112.727}, {-10, -87.727}, {-5, -77.727}, {-5, -2.727}, {-20, -2.727}, {-20, 2.273}, {-10, 7.273}, {-10, 17.273}, {-20, 27.273}, {-20, 82.273}})}));
   end Internal;
-  annotation(preferredView = "info", Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})), Documentation(info = "<html> <h4>What Is ModelPlug?</h4>
-<p>ModelPlug is a library that allows you to connect your simulations with the real world.&nbsp;It uses an Arduino board (or compatible) to send analog and digital signals to physical devices and receive signals from them.</p>
-<p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/ModelPlugDocumentation-1.png\" alt=\"\" /></p>
-<h4>What Can You Do with It?</h4>
-<ul>
-<li>Interact with your model by using buttons, switches, knobs, etc.</li>
-<li>Input sensor information, for example, about&nbsp;light, temperature, position, pressure, etc.</li>
-<li>Use actuators like motors, servos, and relays.</li>
-<li>Quickly prototype your system by using SystemModeler blocks.</li>
-</ul>
-<p>&nbsp;</p>
-<p>With ModelPlug, you can combine simulation models and real hardware. For example, you can get data from your hardware, design a control, and test it in real time.</p>
-<p>&nbsp;</p>
-<p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/ModelPlugDocumentation-2.png\" alt=\"\" /></p>
-<p>&nbsp;You can build a real control panel and use it to control your simulation models.&nbsp;</p>
-<p><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/ModelPlugDocumentation-3.png\" alt=\"\" /></p>
-<h4>Overview of the Components</h4>
-<p>ModelPlug provides the following components:</p>
-<table style=\"height: 212px;\" width=\"479\">
-<tbody>
-<tr>
-<td><strong>&nbsp;</strong></td>
-<td style=\"text-align: center;\">&nbsp;<span class=\"Apple-style-span\"><strong>Inputs</strong></span></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>Analog&nbsp;input</td>
-<td>Reads analog values from the pins</td>
-<td style=\"text-align: center;\"><img src=\"modelica://OpenModelicaEmbedded/Resources/Images/analogInput.png\" alt=\"\" />&nbsp;</td>
-</tr>
-<tr>
-<td>Digital&nbsp;input</td>
-<td>Reads digital values from the pins</td>
-<td style=\"text-align: center;\">&nbsp;<img src=\"modelica://OpenModelicaEmbedded/Resources/Images/digitalInput.png\" alt=\"\" /></td>
-</tr>
-<tr>
-<td><strong>&nbsp;</strong></td>
-<td style=\"text-align: center;\">&nbsp;<span class=\"Apple-style-span\"><strong>Output</strong></span></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>Analog output</td>
-<td>Writes analog values to the pins</td>
-<td style=\"text-align: center;\">&nbsp;<img src=\"modelica://OpenModelicaEmbedded/Resources/Images/analogOutput.png\" alt=\"\" /></td>
-</tr>
-<tr>
-<td>Digital output</td>
-<td>Writes digital values to the pins</td>
-<td style=\"text-align: center;\">&nbsp;<img src=\"modelica://OpenModelicaEmbedded/Resources/Images/digitalOutput.png\" alt=\"\" /></td>
-</tr>
-<tr>
-<td>Servo control</td>
-<td>Writes the angle to servo motors</td>
-<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"modelica://OpenModelicaEmbedded/Resources/Images/servo.png\" alt=\"\" /></td>
-</tr>
-<tr>
-<td><strong>&nbsp;</strong></td>
-<td style=\"text-align: center;\">&nbsp;<span class=\"Apple-style-span\"><strong>Board Handlers</strong></span></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>Arduino</td>
-<td>Connects to Arduino boards like Arduino Uno, Arduino Mega 2560</td>
-<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"modelica://OpenModelicaEmbedded/Resources/Images/arduino.png\" alt=\"\" /></td>
-</tr>
-<tr>
-<td>Arduino Leonardo</td>
-<td>Connects to Arduino Leonardo boards and boards using native USB</td>
-<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"modelica://OpenModelicaEmbedded/Resources/Images/arduinoLeonardo.png\" alt=\"\" /></td>
-</tr>
-<tr>
-<td>StandardFirmata</td>
-<td>Connects to Arduino-compatible boards</td>
-<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"modelica://OpenModelicaEmbedded/Resources/Images/standard.png\" alt=\"\" /></td>
-</tr>
-<tr>
-<td>CustomFirmata</td>
-<td>Connects to any board supporting Firmata</td>
-<td>&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"modelica://OpenModelicaEmbedded/Resources/Images/custom.png\" alt=\"\" /></td>
-</tr>
-</tbody>
-</table>
-<h4>How Does It Work?</h4>
-<p>ModelPlug connects with the boards using USB serial communication. In order to configure, read, and write to the board, ModelPlug uses the Firmata protocol v2.3 (<a href=\"http://www.firmata.org/\">http://www.firmata.org</a>). This protocol allows you to connect not only to Arduinos, but also to many boards compatible with Arduino. Examples of other boards supporting the Firmata protocol are:</p>
-<ul>
-<li>Teensy Development Board: Using AVR or ARM processors</li>
-<li>chipKIT: Using PIC32 processors</li>
-</ul>
-<p>ModelPlug wraps the functionality of Firmata by providing easy-to-use Modelica models that you can connect in your simulations.</p>
-<h4>New in Version 1.2</h4>
-<ul>
-<li>Allows defining initial values in AnalogInput and DigitalInput Pins</li>
-<li>Improved support for Windows 10</li>
-</ul>
-<h4>Limitations</h4>
-<p>ModelPlug requires a board with Firmata Version 2.3 or higher.</p>
-<p>Currently ModelPlug does not support sensors that communicate through I2C or SPI with the board.</p>
-<p>The minimum synchronization interval is 1 ms; therefore, ModelPlug cannot have a sampling interval smaller than that. The standard Firmata allows a minimum&nbsp;sampling interval of 10 ms.<br /> <br />ModelPlug uses a serial protocol; therefore, the transfer speed is constrained by the serial port speed. This can be problematic when reading or writing too many inputs/outputs with a small sampling interval.</p>
-<h4>Links</h4>
-<p>Ask questions about SystemModeler and ModelPlug</p>
-<p><a href=\"http://community.wolfram.com/\">http://community.wolfram.com</a></p>
-<p>Find out how to connect sensors and actuators to the Arduino</p>
-<p><a href=\"http://playground.arduino.cc/\">http://playground.arduino.cc</a></p>
-<p>Get details about the Firmata protocol</p>
-<p><a href=\"http://www.firmata.org/\">http://www.firmata.org</a></p>
-<p>The breadboard diagrams were created using Fritzing</p>
-<p><a href=\"http://fritzing.org/\">http://fritzing.org</a></p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p></html>", revisions = ""), version = "1.2", Icon(coordinateSystem( initialScale = 0.1, grid = {5, 5}), graphics = {Rectangle(fillColor = {0, 170, 255}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, radius = 25), Text(origin = {-47.5, 55}, extent = {{-42.5, 15}, {137.5, -80}}, textString = "OpenModelica", textStyle = {TextStyle.Bold}), Text(origin = {2.5, -15}, extent = {{-77.5, 15}, {77.5, -15}}, textString = "Embedded", textStyle = {TextStyle.Bold})}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})),
+  annotation(preferredView = "info", Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})), version = "1.2", Icon(coordinateSystem( initialScale = 0.1, grid = {5, 5}), graphics = {Rectangle(fillColor = {0, 170, 255}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}, radius = 25), Text(origin = {-47.5, 55}, extent = {{-42.5, 15}, {137.5, -80}}, textString = "OpenModelica", textStyle = {TextStyle.Bold}), Text(origin = {2.5, -15}, extent = {{-77.5, 15}, {77.5, -15}}, textString = "Embedded", textStyle = {TextStyle.Bold})}), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})),
   uses(Modelica_DeviceDrivers(version = "1.5.0"), Modelica(version = "3.2.2")));
 end OpenModelicaEmbedded;
